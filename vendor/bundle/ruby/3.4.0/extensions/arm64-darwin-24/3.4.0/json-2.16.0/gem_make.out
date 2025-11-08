@@ -1,0 +1,26 @@
+current directory: /Users/rockpvvishwakarma/Documents/+++/AttireBandhan/vendor/bundle/ruby/3.4.0/gems/json-2.16.0/ext/json/ext/parser
+/opt/homebrew/opt/ruby/bin/ruby extconf.rb
+checking for rb_enc_interned_str() in ruby/encoding.h... yes
+checking for rb_str_to_interned_str() in ruby.h... yes
+checking for rb_hash_new_capa() in ruby.h... yes
+checking for rb_hash_bulk_insert() in ruby.h... yes
+checking for strnlen() in string.h... yes
+checking for whether -std=c99 is accepted as CFLAGS... yes
+checking for arm_neon.h... yes
+checking for cpuid.h... no
+creating Makefile
+
+current directory: /Users/rockpvvishwakarma/Documents/+++/AttireBandhan/vendor/bundle/ruby/3.4.0/gems/json-2.16.0/ext/json/ext/parser
+make DESTDIR\= sitearchdir\=./.gem.20251108-30534-1i12co sitelibdir\=./.gem.20251108-30534-1i12co clean
+
+current directory: /Users/rockpvvishwakarma/Documents/+++/AttireBandhan/vendor/bundle/ruby/3.4.0/gems/json-2.16.0/ext/json/ext/parser
+make DESTDIR\= sitearchdir\=./.gem.20251108-30534-1i12co sitelibdir\=./.gem.20251108-30534-1i12co
+compiling parser.c
+linking shared-object json/ext/parser.bundle
+
+current directory: /Users/rockpvvishwakarma/Documents/+++/AttireBandhan/vendor/bundle/ruby/3.4.0/gems/json-2.16.0/ext/json/ext/parser
+make DESTDIR\= sitearchdir\=./.gem.20251108-30534-1i12co sitelibdir\=./.gem.20251108-30534-1i12co install
+/usr/bin/install -c -m 0755 parser.bundle ./.gem.20251108-30534-1i12co/json/ext
+
+current directory: /Users/rockpvvishwakarma/Documents/+++/AttireBandhan/vendor/bundle/ruby/3.4.0/gems/json-2.16.0/ext/json/ext/parser
+make DESTDIR\= sitearchdir\=./.gem.20251108-30534-1i12co sitelibdir\=./.gem.20251108-30534-1i12co clean
