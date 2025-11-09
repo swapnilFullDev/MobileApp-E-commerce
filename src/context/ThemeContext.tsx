@@ -4,10 +4,10 @@ import {
   useContext,
   useMemo,
   useState,
-} from 'react';
+} from "react";
 
 export type Theme = {
-  name: 'light' | 'dark';
+  name: "light" | "dark";
   background: string;
   surface: string;
   text: string;
@@ -18,25 +18,25 @@ export type Theme = {
 };
 
 const lightTheme: Theme = {
-  name: 'light',
-  background: '#FAF5EF',
-  surface: '#FFFFFF',
-  text: '#1F2933',
-  muted: '#6B7280',
-  primary: '#2F4157',
-  border: '#E5E7EB',
-  secondaryText: '#4B5563',
+  name: "light",
+  background: "#FAF5EF",
+  surface: "#FFFFFF",
+  text: "#1F2933",
+  muted: "#6B7280",
+  primary: "#2F4157",
+  border: "#E5E7EB",
+  secondaryText: "#4B5563",
 };
 
 const darkTheme: Theme = {
-  name: 'dark',
-  background: '#0F172A',
-  surface: '#1E293B',
-  text: '#F8FAFC',
-  muted: '#CBD5F5',
-  primary: '#10B981',
-  border: '#334155',
-  secondaryText: '#94A3B8',
+  name: "dark",
+  background: "#0F172A",
+  surface: "#1E293B",
+  text: "#F8FAFC",
+  muted: "#CBD5F5",
+  primary: "#10B981",
+  border: "#334155",
+  secondaryText: "#94A3B8",
 };
 
 type ThemeContextValue = {
@@ -53,14 +53,14 @@ export function ThemeProvider({ children }: PropsWithChildren) {
   const [theme, setTheme] = useState<Theme>(lightTheme);
 
   const toggleTheme = () =>
-    setTheme(current => (current.name === 'light' ? darkTheme : lightTheme));
+    setTheme((current) => (current.name === "light" ? darkTheme : lightTheme));
 
   const value = useMemo(
     () => ({
       theme,
       toggleTheme,
     }),
-    [theme],
+    [theme]
   );
 
   return (

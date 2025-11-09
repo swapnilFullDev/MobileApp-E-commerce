@@ -69,6 +69,14 @@ export const NEW_ARRIVALS: ProductItem[] = [
     originalPrice: "₹4,799",
     discountLabel: "12% OFF",
   },
+  {
+    id: "buyOnly1",
+    title: "Handcrafted Heritage Sherwani",
+    price: "₹8,499",
+    image: "placeholder4",
+    originalPrice: "₹9,299",
+    discountLabel: "9% OFF",
+  },
 ];
 
 export type CategoryItem = {

@@ -47,9 +47,13 @@ export default function ProductDetailScreen() {
     product.rentalDurationOptions[0] ?? 3
   );
   const buyAvailable = product.buyAvailable !== false;
+  const rentAvailable =
+    product.rentalAvailable !== false &&
+    (product.rentalDurationOptions?.length ?? 0) > 0 &&
+    product.rentalPricePerDay > 0;
   const canPurchase = buyAvailable && Boolean(product.price);
   const [fulfillmentMode, setFulfillmentMode] = useState<"rent" | "buy">(
-    "rent"
+    rentAvailable ? "rent" : "buy"
   );
 
   useEffect(() => {
@@ -57,26 +61,28 @@ export default function ProductDetailScreen() {
     setSelectedSize(product.sizes[0] ?? "");
     setSelectedColor(product.colors[0] ?? "");
     setSelectedDuration(product.rentalDurationOptions[0] ?? 3);
-    setFulfillmentMode("rent");
-  }, [product]);
+    setFulfillmentMode(rentAvailable ? "rent" : "buy");
+  }, [product, rentAvailable]);
 
   const rentalTotalCost = selectedDuration * product.rentalPricePerDay;
-  const isRenting = fulfillmentMode === "rent";
+  const isRenting = rentAvailable && fulfillmentMode === "rent";
   const primaryActionLabel = isRenting ? "Reserve Now" : "Buy Now";
   const secondaryActionLabel = isRenting ? "Save for Later" : "Add to Wishlist";
   const summaryTitle = isRenting ? "Rental Summary" : "Purchase Summary";
-  const summaryValueText = isRenting
-    ? `${selectedDuration}-day rental · ₹${rentalTotalCost.toLocaleString(
-        "en-IN"
-      )}`
-    : `Purchase price · ${product.price}`;
-  const summaryMetaText = isRenting
-    ? `Deposit ₹${product.securityDeposit.toLocaleString("en-IN")} · Size ${
-        selectedSize || "Free"
-      } · ${selectedColor || "Standard"}`
-    : `Size ${selectedSize || "Free"} · ${selectedColor || "Standard"}${
-        product.discountLabel ? ` · ${product.discountLabel}` : ""
-      }`;
+  const summaryValueText =
+    isRenting && rentAvailable
+      ? `${selectedDuration}-day rental · ₹${rentalTotalCost.toLocaleString(
+          "en-IN"
+        )}`
+      : `Purchase price · ${product.price}`;
+  const summaryMetaText =
+    isRenting && rentAvailable
+      ? `Deposit ₹${product.securityDeposit.toLocaleString("en-IN")} · Size ${
+          selectedSize || "Free"
+        } · ${selectedColor || "Standard"}`
+      : `Size ${selectedSize || "Free"} · ${selectedColor || "Standard"}${
+          product.discountLabel ? ` · ${product.discountLabel}` : ""
+        }`;
 
   const similarProducts = useMemo(
     () =>
@@ -121,12 +127,14 @@ export default function ProductDetailScreen() {
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <FulfillmentToggle
-          mode={fulfillmentMode}
-          canPurchase={canPurchase}
-          onSelect={setFulfillmentMode}
-          theme={theme}
-        />
+        {rentAvailable && canPurchase ? (
+          <FulfillmentToggle
+            mode={fulfillmentMode}
+            canPurchase={canPurchase}
+            onSelect={setFulfillmentMode}
+            theme={theme}
+          />
+        ) : null}
         <View
           style={[
             styles.heroCard,

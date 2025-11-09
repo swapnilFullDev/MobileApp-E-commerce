@@ -20,6 +20,7 @@ export type ProductDetail = {
   securityDeposit: number;
   deliveryInfo: string;
   buyAvailable?: boolean;
+  rentalAvailable?: boolean;
 };
 
 export const PRODUCT_DETAILS: Record<string, ProductDetail> = {
@@ -105,6 +106,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail> = {
     deliveryInfo:
       "Ships 36 hours before your booking start time with complimentary return packaging and next-day pickup.",
     buyAvailable: false,
+    rentalAvailable: true,
   },
   featured1: {
     id: "featured1",
@@ -163,6 +165,7 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail> = {
     deliveryInfo:
       "Delivered two days before your event with insured handling. Pickup is coordinated within 24 hours post rental.",
     buyAvailable: true,
+    rentalAvailable: true,
   },
   featured3: {
     id: "featured3",
@@ -191,6 +194,35 @@ export const PRODUCT_DETAILS: Record<string, ProductDetail> = {
       "Every Banarasi saree rental includes fall & pico finishing, blouse piece pressing, and hassle-free doorstep pickup after your celebration.",
     deliveryInfo:
       "Scheduled delivery 48 hours ahead for trials and styling; pickup reminder sent on the final day with courier collection the next morning.",
+  },
+  buyOnly1: {
+    id: "buyOnly1",
+    title: "Handcrafted Heritage Sherwani",
+    price: "₹8,499",
+    originalPrice: "₹9,299",
+    discountLabel: "9% OFF",
+    image: "placeholder4",
+    gallery: ["placeholder4", "placeholder2", "placeholder1"],
+    description:
+      "Own this limited-edition sherwani crafted with intricate zari work, finished with silk lining for lasting comfort during grand celebrations.",
+    highlights: [
+      "Premium brocade with hand-embroidered motifs",
+      "Silk lining with moisture-wicking finish",
+      "Includes matching stole and pocket square",
+      "Complimentary alterations within 7 days",
+    ],
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["Ivory Gold", "Champagne"],
+    rating: 4.9,
+    reviewsCount: 312,
+    rentalPricePerDay: 0,
+    rentalDurationOptions: [],
+    securityDeposit: 0,
+    rentalInfo: "This outfit is available for purchase only.",
+    deliveryInfo:
+      "Ships within 48 hours with insured delivery. Complimentary fitting session included on request.",
+    buyAvailable: true,
+    rentalAvailable: false,
   },
 };
 
