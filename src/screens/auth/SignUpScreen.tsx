@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   Alert,
   Image,
@@ -8,19 +8,19 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { useFormik } from 'formik';
-import AuthHeader from '../../components/auth/AuthHeader';
-import { Button, TextInput } from '../../components/common';
-import Images, { Icons } from '../../constants/images';
-import STRINGS from '../../constants/strings';
-import { ROUTES } from '../../constants';
-import { signUpScreenStyles } from '../../constants/styles/auth';
-import { useTheme } from '../../context';
-import { AuthStackNavigationProp } from '../../navigation/types';
-import { signUpValidationSchema } from '../../validation/authSchema';
-import { useAppDispatch } from '../../redux/hooks';
-import { registerThunk } from '../../redux/thunks/authThunks';
+} from "react-native";
+import { useFormik } from "formik";
+import AuthHeader from "../../components/auth/AuthHeader";
+import { Button, TextInput } from "../../components/common";
+import Images, { Icons } from "../../constants/images";
+import STRINGS from "../../constants/strings";
+import { ROUTES } from "../../constants";
+import { signUpScreenStyles } from "../../styles/auth/signUpStyles";
+import { useTheme } from "../../context";
+import { AuthStackNavigationProp } from "../../navigation/types";
+import { signUpValidationSchema } from "../../validation/authSchema";
+import { useAppDispatch } from "../../redux/hooks";
+import { registerThunk } from "../../redux/thunks/authThunks";
 
 type SignUpFormValues = {
   fullName: string;
@@ -37,14 +37,15 @@ export default function SignUpScreen() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   const formik = useFormik<SignUpFormValues>({
     initialValues: {
-      fullName: '',
-      email: '',
-      phone: '',
-      password: '',
-      confirmPassword: '',
+      fullName: "",
+      email: "",
+      phone: "",
+      password: "",
+      confirmPassword: "",
     },
     validationSchema: signUpValidationSchema,
     onSubmit: async (values, helpers) => {
@@ -56,22 +57,22 @@ export default function SignUpScreen() {
             Password: values.password,
             ConfirmPassword: values.confirmPassword,
             Phone: values.phone,
-            Address: 'Not provided',
-            Gender: 'Not specified',
-            ProfileImage: '',
-            Role: 'User',
-          }),
+            Address: "Not provided",
+            Gender: "Not specified",
+            ProfileImage: "",
+            Role: "User",
+          })
         ).unwrap();
-        Alert.alert('Success', STRINGS.auth.signup.success, [
+        Alert.alert("Success", STRINGS.auth.signup.success, [
           {
-            text: 'OK',
+            text: "OK",
             onPress: () => navigation.navigate(ROUTES.LOGIN),
           },
         ]);
       } catch (error) {
         const message =
           error instanceof Error ? error.message : STRINGS.auth.signup.error;
-        Alert.alert('Registration failed', message);
+        Alert.alert("Registration failed", message);
       } finally {
         helpers.setSubmitting(false);
       }
@@ -107,8 +108,8 @@ export default function SignUpScreen() {
                 label={STRINGS.auth.signup.nameLabel}
                 placeholder={STRINGS.auth.signup.namePlaceholder}
                 value={formik.values.fullName}
-                onChangeText={formik.handleChange('fullName')}
-                onBlur={formik.handleBlur('fullName')}
+                onChangeText={formik.handleChange("fullName")}
+                onBlur={formik.handleBlur("fullName")}
                 autoCapitalize="words"
                 error={
                   formik.touched.fullName && formik.errors.fullName
@@ -121,8 +122,8 @@ export default function SignUpScreen() {
                 label={STRINGS.auth.signup.emailLabel}
                 placeholder={STRINGS.auth.signup.emailPlaceholder}
                 value={formik.values.email}
-                onChangeText={formik.handleChange('email')}
-                onBlur={formik.handleBlur('email')}
+                onChangeText={formik.handleChange("email")}
+                onBlur={formik.handleBlur("email")}
                 autoCapitalize="none"
                 keyboardType="email-address"
                 error={
@@ -136,8 +137,8 @@ export default function SignUpScreen() {
                 label={STRINGS.auth.signup.phoneLabel}
                 placeholder={STRINGS.auth.signup.phonePlaceholder}
                 value={formik.values.phone}
-                onChangeText={formik.handleChange('phone')}
-                onBlur={formik.handleBlur('phone')}
+                onChangeText={formik.handleChange("phone")}
+                onBlur={formik.handleBlur("phone")}
                 keyboardType="phone-pad"
                 error={
                   formik.touched.phone && formik.errors.phone
@@ -150,11 +151,11 @@ export default function SignUpScreen() {
                 label={STRINGS.auth.signup.passwordLabel}
                 placeholder={STRINGS.auth.signup.passwordPlaceholder}
                 value={formik.values.password}
-                onChangeText={formik.handleChange('password')}
-                onBlur={formik.handleBlur('password')}
+                onChangeText={formik.handleChange("password")}
+                onBlur={formik.handleBlur("password")}
                 secureTextEntry={!showPassword}
                 rightIcon
-                onRightIconPress={() => setShowPassword(prev => !prev)}
+                onRightIconPress={() => setShowPassword((prev) => !prev)}
                 error={
                   formik.touched.password && formik.errors.password
                     ? formik.errors.password
@@ -166,11 +167,11 @@ export default function SignUpScreen() {
                 label={STRINGS.auth.signup.confirmPasswordLabel}
                 placeholder={STRINGS.auth.signup.confirmPasswordPlaceholder}
                 value={formik.values.confirmPassword}
-                onChangeText={formik.handleChange('confirmPassword')}
-                onBlur={formik.handleBlur('confirmPassword')}
+                onChangeText={formik.handleChange("confirmPassword")}
+                onBlur={formik.handleBlur("confirmPassword")}
                 secureTextEntry={!showConfirmPassword}
                 rightIcon
-                onRightIconPress={() => setShowConfirmPassword(prev => !prev)}
+                onRightIconPress={() => setShowConfirmPassword((prev) => !prev)}
                 error={
                   formik.touched.confirmPassword &&
                   formik.errors.confirmPassword
@@ -179,11 +180,38 @@ export default function SignUpScreen() {
                 }
               />
 
-              <Text
-                style={[signUpScreenStyles.termsText, { color: theme.muted }]}
+              <TouchableOpacity
+                style={signUpScreenStyles.termsRow}
+                onPress={() => setAcceptedTerms((prev) => !prev)}
+                activeOpacity={0.8}
+                accessibilityRole="checkbox"
+                accessibilityState={{ checked: acceptedTerms }}
               >
-                {STRINGS.auth.signup.terms}
-              </Text>
+                <View
+                  style={[
+                    signUpScreenStyles.checkbox,
+                    {
+                      borderColor: theme.border,
+                      backgroundColor: theme.background,
+                    },
+                  ]}
+                >
+                  {acceptedTerms ? (
+                    // <View
+                    //   style={[
+                    //     signUpScreenStyles.checkboxChecked,
+                    //     { backgroundColor: theme.primary },
+                    //   ]}
+                    // />
+                    <Text>✓</Text>
+                  ) : null}
+                </View>
+                <Text
+                  style={[signUpScreenStyles.termsText, { color: theme.muted }]}
+                >
+                  {STRINGS.auth.signup.terms}
+                </Text>
+              </TouchableOpacity>
 
               <Button
                 title={STRINGS.auth.signup.signUpButton}

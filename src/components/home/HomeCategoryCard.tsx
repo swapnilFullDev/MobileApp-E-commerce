@@ -1,22 +1,31 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import Images from '../../constants/images';
-import { CategoryItem } from '../../constants/home';
-import { useTheme } from '../../context';
-import { moderateScale, scale } from '../../theme/metrics';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
-import { radius } from '../../theme/radius';
-import { fonts } from '../../theme/fonts';
+import React from "react";
+import {
+  ImageBackground,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from "react-native";
+import Images from "../../constants/images";
+import { CategoryItem } from "../../data/home";
+import { useTheme } from "../../context";
+import { moderateScale } from "../../theme/metrics";
+import { spacing } from "../../theme/spacing";
+import { radius } from "../../theme/radius";
+import { fonts } from "../../theme/fonts";
 
 type HomeCategoryCardProps = {
   category: CategoryItem;
   onPress?: (category: CategoryItem) => void;
+  style?: StyleProp<ViewStyle>;
 };
 
 export default function HomeCategoryCard({
   category,
   onPress,
+  style,
 }: HomeCategoryCardProps) {
   const { theme } = useTheme();
 
@@ -25,36 +34,49 @@ export default function HomeCategoryCard({
       style={[
         styles.container,
         {
-          backgroundColor: theme.surface,
           borderColor: theme.border,
         },
+        style,
       ]}
       onPress={() => onPress?.(category)}
       activeOpacity={0.9}
     >
-      <Image source={Images[category.image]} style={styles.image} />
-      <Text style={styles.label}>{category.label}</Text>
+      <ImageBackground
+        source={Images[category.image]}
+        style={styles.image}
+        imageStyle={styles.imageRadius}
+      >
+        <View style={styles.overlay} />
+        <Text style={styles.label}>{category.label}</Text>
+      </ImageBackground>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: scale(120),
-    borderRadius: radius.lg,
-    overflow: 'hidden',
+    flex: 1,
+    borderRadius: radius.xl,
+    overflow: "hidden",
     borderWidth: 1,
-    alignItems: 'center',
   },
   image: {
-    width: '100%',
-    height: scale(100),
-    resizeMode: 'cover',
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: spacing.md,
+  },
+  imageRadius: {
+    borderRadius: radius.xl,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "#00000055",
   },
   label: {
     fontFamily: fonts.semiBold,
-    fontSize: moderateScale(14),
-    textAlign: 'center',
-    paddingVertical: spacing.sm,
+    fontSize: moderateScale(18),
+    color: "#FFFFFF",
+    textAlign: "center",
   },
 });

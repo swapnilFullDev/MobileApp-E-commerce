@@ -1,11 +1,11 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Images from '../../constants/images';
-import { PromoBanner } from '../../constants/home';
-import { useTheme } from '../../context';
-import { scale } from '../../theme/metrics';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
+import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Images from "../../constants/images";
+import { PromoBanner } from "../../data/home";
+import { useTheme } from "../../context";
+import { scale } from "../../theme/metrics";
+import { spacing } from "../../theme/spacing";
+import { typography } from "../../theme/typography";
 
 type HomePromoBannerProps = {
   banner: PromoBanner;
@@ -53,29 +53,29 @@ const styles = StyleSheet.create({
     // marginHorizontal: spacing.xl,
     // borderRadius: spacing.md,
     padding: spacing.md,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     gap: spacing.md,
   },
   sideImage: {
     width: scale(60),
     height: scale(120),
-    resizeMode: 'cover',
+    resizeMode: "cover",
     borderRadius: spacing.sm,
   },
   content: {
     flex: 1,
     gap: spacing.sm,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
     ...typography.subheading,
-    textAlign: 'center',
+    textAlign: "center",
   },
   subtitle: {
     ...typography.caption,
-    textAlign: 'center',
+    textAlign: "center",
   },
   button: {
     paddingHorizontal: spacing.lg,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: spacing.lg,
   },
   buttonLabel: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     ...typography.label,
   },
 });

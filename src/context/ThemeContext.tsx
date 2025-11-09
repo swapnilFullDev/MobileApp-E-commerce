@@ -14,6 +14,7 @@ export type Theme = {
   muted: string;
   primary: string;
   border: string;
+  secondaryText: string;
 };
 
 const lightTheme: Theme = {
@@ -24,6 +25,7 @@ const lightTheme: Theme = {
   muted: '#6B7280',
   primary: '#2F4157',
   border: '#E5E7EB',
+  secondaryText: '#4B5563',
 };
 
 const darkTheme: Theme = {
@@ -34,6 +36,7 @@ const darkTheme: Theme = {
   muted: '#CBD5F5',
   primary: '#10B981',
   border: '#334155',
+  secondaryText: '#94A3B8',
 };
 
 type ThemeContextValue = {

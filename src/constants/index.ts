@@ -2,7 +2,8 @@ export const ROUTES = {
   AUTH_STACK: 'AuthStack',
   LOGIN: 'Login',
   SIGN_UP: 'SignUpScreen',
-  HOME: 'Home',
+  MAIN_TABS: 'MainTabs',
+  PRODUCT_DETAIL: 'ProductDetail',
 } as const;
 
 export const APP_COPY = {

@@ -1,20 +1,73 @@
 {
-  "root": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan",
-  "reactNativePath": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan/node_modules/react-native",
+  "root": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce",
+  "reactNativePath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native",
   "reactNativeVersion": "0.82",
   "dependencies": {
+    "@react-native-async-storage/async-storage": {
+      "root": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/@react-native-async-storage/async-storage",
+      "name": "@react-native-async-storage/async-storage",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/@react-native-async-storage/async-storage/RNCAsyncStorage.podspec",
+          "version": "2.2.0",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/@react-native-async-storage/async-storage/android",
+          "packageImportPath": "import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;",
+          "packageInstance": "new AsyncStoragePackage()",
+          "buildTypes": [],
+          "libraryName": "rnasyncstorage",
+          "componentDescriptors": [],
+          "cmakeListsPath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
+    "react-native-gesture-handler": {
+      "root": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-gesture-handler",
+      "name": "react-native-gesture-handler",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-gesture-handler/RNGestureHandler.podspec",
+          "version": "2.29.1",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-gesture-handler/android",
+          "packageImportPath": "import com.swmansion.gesturehandler.RNGestureHandlerPackage;",
+          "packageInstance": "new RNGestureHandlerPackage()",
+          "buildTypes": [],
+          "libraryName": "rngesturehandler_codegen",
+          "componentDescriptors": [
+            "RNGestureHandlerButtonComponentDescriptor",
+            "RNGestureHandlerRootViewComponentDescriptor"
+          ],
+          "cmakeListsPath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
     "react-native-safe-area-context": {
-      "root": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan/node_modules/react-native-safe-area-context",
+      "root": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-safe-area-context",
       "name": "react-native-safe-area-context",
       "platforms": {
         "ios": {
-          "podspecPath": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan/node_modules/react-native-safe-area-context/react-native-safe-area-context.podspec",
+          "podspecPath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-safe-area-context/react-native-safe-area-context.podspec",
           "version": "5.6.2",
           "configurations": [],
           "scriptPhases": []
         },
         "android": {
-          "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan/node_modules/react-native-safe-area-context/android",
+          "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-safe-area-context/android",
           "packageImportPath": "import com.th3rdwave.safeareacontext.SafeAreaContextPackage;",
           "packageInstance": "new SafeAreaContextPackage()",
           "buildTypes": [],
@@ -23,7 +76,46 @@
             "RNCSafeAreaProviderComponentDescriptor",
             "RNCSafeAreaViewComponentDescriptor"
           ],
-          "cmakeListsPath": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+          "cmakeListsPath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+          "cxxModuleCMakeListsModuleName": null,
+          "cxxModuleCMakeListsPath": null,
+          "cxxModuleHeaderName": null,
+          "isPureCxxDependency": false
+        }
+      }
+    },
+    "react-native-screens": {
+      "root": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-screens",
+      "name": "react-native-screens",
+      "platforms": {
+        "ios": {
+          "podspecPath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-screens/RNScreens.podspec",
+          "version": "4.18.0",
+          "configurations": [],
+          "scriptPhases": []
+        },
+        "android": {
+          "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-screens/android",
+          "packageImportPath": "import com.swmansion.rnscreens.RNScreensPackage;",
+          "packageInstance": "new RNScreensPackage()",
+          "buildTypes": [],
+          "libraryName": "rnscreens",
+          "componentDescriptors": [
+            "RNSFullWindowOverlayComponentDescriptor",
+            "RNSScreenContainerComponentDescriptor",
+            "RNSScreenNavigationContainerComponentDescriptor",
+            "RNSScreenStackHeaderConfigComponentDescriptor",
+            "RNSScreenStackHeaderSubviewComponentDescriptor",
+            "RNSScreenStackComponentDescriptor",
+            "RNSSearchBarComponentDescriptor",
+            "RNSScreenComponentDescriptor",
+            "RNSScreenFooterComponentDescriptor",
+            "RNSScreenContentWrapperComponentDescriptor",
+            "RNSModalScreenComponentDescriptor",
+            "RNSBottomTabsComponentDescriptor",
+            "RNSSafeAreaViewComponentDescriptor"
+          ],
+          "cmakeListsPath": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
           "cxxModuleCMakeListsModuleName": null,
           "cxxModuleCMakeListsPath": null,
           "cxxModuleHeaderName": null,
@@ -194,7 +286,7 @@
         {
           "name": "--path <path>",
           "description": "Path to the React Native project root.",
-          "default": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan/ios"
+          "default": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/ios"
         },
         {
           "name": "--platform <string>",
@@ -251,7 +343,7 @@
         {
           "name": "--terminal <string>",
           "description": "Launches the Metro Bundler in a new window using the specified terminal path.",
-          "default": "Apple_Terminal"
+          "default": "vscode"
         },
         {
           "name": "--binary-path <string>",
@@ -419,7 +511,7 @@
         {
           "name": "--terminal <string>",
           "description": "Launches the Metro Bundler in a new window using the specified terminal path.",
-          "default": "Apple_Terminal"
+          "default": "vscode"
         },
         {
           "name": "--appId <string>",
@@ -491,19 +583,21 @@
     "ios": {},
     "android": {}
   },
-  "assets": [],
+  "assets": [
+    "./src/assets/fonts"
+  ],
   "project": {
     "ios": {
-      "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan/ios",
+      "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/ios",
       "xcodeProject": {
-        "name": "AttireBandhan.xcodeproj",
+        "name": "AttireBandhan.xcworkspace",
         "path": ".",
-        "isWorkspace": false
+        "isWorkspace": true
       },
       "assets": []
     },
     "android": {
-      "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/AttireBandhan/android",
+      "sourceDir": "/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android",
       "appName": "app",
       "packageName": "com.attirebandhan",
       "applicationId": "com.attirebandhan",

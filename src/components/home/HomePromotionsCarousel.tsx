@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 import {
   Dimensions,
   FlatList,
@@ -8,16 +8,16 @@ import {
   TouchableOpacity,
   View,
   ViewToken,
-} from 'react-native';
-import Images from '../../constants/images';
-import { PROMOTIONS, PromotionCard } from '../../constants/home';
-import { useTheme } from '../../context';
-import { scale, verticalScale } from '../../theme/metrics';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
-import { radius } from '../../theme/radius';
+} from "react-native";
+import Images from "../../constants/images";
+import { PROMOTIONS, PromotionCard } from "../../data/home";
+import { useTheme } from "../../context";
+import { scale, verticalScale } from "../../theme/metrics";
+import { spacing } from "../../theme/spacing";
+import { typography } from "../../theme/typography";
+import { radius } from "../../theme/radius";
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = SCREEN_WIDTH - spacing.xl * 2;
 const SNAP_INTERVAL = CARD_WIDTH + spacing.md;
 
@@ -39,11 +39,11 @@ export default function HomePromotionsCarousel({
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
       if (viewableItems?.length) {
         const next = viewableItems[0]?.index ?? 0;
-        if (typeof next === 'number' && next !== activeIndex) {
+        if (typeof next === "number" && next !== activeIndex) {
           setActiveIndex(next);
         }
       }
-    },
+    }
   ).current;
 
   const renderItem = ({ item }: { item: PromotionCard }) => (
@@ -82,7 +82,7 @@ export default function HomePromotionsCarousel({
     <View style={styles.container}>
       <FlatList
         data={data}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         renderItem={renderItem}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
     width: CARD_WIDTH,
     height: verticalScale(160),
     borderRadius: radius.xl,
-    overflow: 'hidden',
-    justifyContent: 'flex-end',
+    overflow: "hidden",
+    justifyContent: "flex-end",
   },
   image: {
     borderRadius: radius.xl,
@@ -142,20 +142,20 @@ const styles = StyleSheet.create({
     ...typography.body,
   },
   cta: {
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     borderRadius: radius.md,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm,
     margin: scale(10),
   },
   ctaText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     ...typography.label,
   },
   indicators: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     gap: spacing.xs,
   },
   dot: {

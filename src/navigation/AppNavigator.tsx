@@ -1,9 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../context';
-import HomeScreen from '../screens/HomeScreen';
+import MainTabs from './MainTabs';
 import LoginScreen from '../screens/auth/LoginScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
+import ProductDetailScreen from '../screens/ProductDetailScreen';
 import { ROUTES } from '../constants';
 import { AuthStackParamList } from './types';
 
@@ -20,7 +21,13 @@ export default function AppNavigator() {
         }}
       >
         {isAuthenticated ? (
-          <Stack.Screen name={ROUTES.HOME} component={HomeScreen} />
+          <>
+            <Stack.Screen name={ROUTES.MAIN_TABS} component={MainTabs} />
+            <Stack.Screen
+              name={ROUTES.PRODUCT_DETAIL}
+              component={ProductDetailScreen}
+            />
+          </>
         ) : (
           <>
             <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen} />

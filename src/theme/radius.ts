@@ -8,4 +8,5 @@ export const radius = {
   xl: scale(10),
   xxl: scale(12),
   xxxl: scale(14),
+  full: scale(999),
 };

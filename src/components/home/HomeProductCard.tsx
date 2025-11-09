@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Images from '../../constants/images';
-import { ProductItem } from '../../constants/home';
+import { ProductItem } from '../../data/home';
 import { useTheme } from '../../context';
 import { moderateScale, scale } from '../../theme/metrics';
 import { spacing } from '../../theme/spacing';

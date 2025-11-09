@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   Alert,
   Image,
@@ -8,20 +8,21 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { useFormik } from 'formik';
-import AuthHeader from '../../components/auth/AuthHeader';
-import { Button, TextInput } from '../../components/common';
-import { useTheme } from '../../context';
-import STRINGS from '../../constants/strings';
-import { loginScreenStyles } from '../../constants/styles/auth';
-import Images, { Icons } from '../../constants/images';
-import { isDevelopment, isProduction, isStaging } from '../../config/env';
-import { ROUTES } from '../../constants';
-import { AuthStackNavigationProp } from '../../navigation/types';
-import { loginValidationSchema } from '../../validation/authSchema';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { loginThunk } from '../../redux/thunks/authThunks';
+} from "react-native";
+import { useFormik } from "formik";
+import AuthHeader from "../../components/auth/AuthHeader";
+import { Button, TextInput } from "../../components/common";
+import { useTheme } from "../../context";
+import STRINGS from "../../constants/strings";
+import { loginScreenStyles } from "../../styles/auth/loginStyles";
+import Images, { Icons } from "../../constants/images";
+import { isDevelopment, isProduction, isStaging } from "../../config/env";
+import { ROUTES } from "../../constants";
+import { AuthStackNavigationProp } from "../../navigation/types";
+import { loginValidationSchema } from "../../validation/authSchema";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import type { RootState } from "../../redux/store";
+import { loginThunk } from "../../redux/thunks/authThunks";
 
 type LoginFormValues = {
   email: string;
@@ -35,24 +36,24 @@ export default function LoginScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const dispatch = useAppDispatch();
-  const auth = useAppSelector(state => state.auth);
+  const auth = useAppSelector((state: RootState) => state.auth);
 
   const formik = useFormik<LoginFormValues>({
     initialValues: {
-      email: '',
-      password: '',
+      email: "swapnil@example.com",
+      password: "Test@123",
     },
     validationSchema: loginValidationSchema,
     onSubmit: async (values, helpers) => {
       try {
         await dispatch(loginThunk(values)).unwrap();
-        Alert.alert('Success', STRINGS.auth.login.success);
+        Alert.alert("Success", STRINGS.auth.login.success);
       } catch (error) {
         const message =
           error instanceof Error
             ? error.message
             : auth.error ?? STRINGS.auth.login.error;
-        Alert.alert('Login failed', message);
+        Alert.alert("Login failed", message);
       } finally {
         helpers.setSubmitting(false);
       }
@@ -61,14 +62,14 @@ export default function LoginScreen() {
 
   const getEnvironmentColor = () => {
     if (isDevelopment()) {
-      return '#4CAF50';
+      return "#4CAF50";
     }
 
     if (isStaging()) {
-      return '#FF9800';
+      return "#FF9800";
     }
 
-    return '#F44336';
+    return "#F44336";
   };
 
   const getEnvironmentBadgeText = () => {
@@ -110,8 +111,8 @@ export default function LoginScreen() {
                 label={STRINGS.auth.login.emailLabel}
                 placeholder={STRINGS.auth.login.emailPlaceholder}
                 value={formik.values.email}
-                onChangeText={formik.handleChange('email')}
-                onBlur={formik.handleBlur('email')}
+                onChangeText={formik.handleChange("email")}
+                onBlur={formik.handleBlur("email")}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 error={
@@ -125,11 +126,11 @@ export default function LoginScreen() {
                 label={STRINGS.auth.login.passwordLabel}
                 placeholder={STRINGS.auth.login.passwordPlaceholder}
                 value={formik.values.password}
-                onChangeText={formik.handleChange('password')}
-                onBlur={formik.handleBlur('password')}
+                onChangeText={formik.handleChange("password")}
+                onBlur={formik.handleBlur("password")}
                 secureTextEntry={!showPassword}
                 rightIcon
-                onRightIconPress={() => setShowPassword(prev => !prev)}
+                onRightIconPress={() => setShowPassword((prev) => !prev)}
                 error={
                   formik.touched.password && formik.errors.password
                     ? formik.errors.password
@@ -140,7 +141,7 @@ export default function LoginScreen() {
               <View style={loginScreenStyles.rememberRow}>
                 <TouchableOpacity
                   style={loginScreenStyles.checkboxContainer}
-                  onPress={() => setRememberMe(prev => !prev)}
+                  onPress={() => setRememberMe((prev) => !prev)}
                   accessibilityRole="checkbox"
                   accessibilityState={{ checked: rememberMe }}
                 >
@@ -184,7 +185,7 @@ export default function LoginScreen() {
               <Button
                 title={STRINGS.auth.login.loginButton}
                 onPress={() => formik.handleSubmit()}
-                loading={formik.isSubmitting || auth.status === 'loading'}
+                loading={formik.isSubmitting || auth.status === "loading"}
                 fullWidth
               />
 
