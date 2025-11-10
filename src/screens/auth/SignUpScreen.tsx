@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
-  Alert,
   Image,
   ImageBackground,
   ScrollView,
@@ -16,11 +15,12 @@ import Images, { Icons } from "../../constants/images";
 import STRINGS from "../../constants/strings";
 import { ROUTES } from "../../constants";
 import { signUpScreenStyles } from "../../styles/auth/signUpStyles";
-import { useTheme } from "../../context";
+import { useTheme, useToast } from "../../context";
 import { AuthStackNavigationProp } from "../../navigation/types";
 import { signUpValidationSchema } from "../../validation/authSchema";
 import { useAppDispatch } from "../../redux/hooks";
 import { registerThunk } from "../../redux/thunks/authThunks";
+import { spacing } from "../../theme/spacing";
 
 type SignUpFormValues = {
   fullName: string;
@@ -34,6 +34,7 @@ export default function SignUpScreen() {
   const navigation = useNavigation<AuthStackNavigationProp>();
   const { theme } = useTheme();
   const dispatch = useAppDispatch();
+  const { showSuccess, showError, showWarning } = useToast();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -50,6 +51,12 @@ export default function SignUpScreen() {
     validationSchema: signUpValidationSchema,
     onSubmit: async (values, helpers) => {
       try {
+        if (!acceptedTerms) {
+          showWarning("Please accept the terms & conditions to continue.");
+          helpers.setSubmitting(false);
+          return;
+        }
+
         await dispatch(
           registerThunk({
             FullName: values.fullName,
@@ -63,16 +70,12 @@ export default function SignUpScreen() {
             Role: "User",
           })
         ).unwrap();
-        Alert.alert("Success", STRINGS.auth.signup.success, [
-          {
-            text: "OK",
-            onPress: () => navigation.navigate(ROUTES.LOGIN),
-          },
-        ]);
+        showSuccess(STRINGS.auth.signup.success, "Account Created");
+        navigation.navigate(ROUTES.LOGIN);
       } catch (error) {
         const message =
           error instanceof Error ? error.message : STRINGS.auth.signup.error;
-        Alert.alert("Registration failed", message);
+        showError(message, "Registration Failed");
       } finally {
         helpers.setSubmitting(false);
       }
@@ -218,6 +221,7 @@ export default function SignUpScreen() {
                 onPress={() => formik.handleSubmit()}
                 loading={formik.isSubmitting}
                 fullWidth
+                style={{ marginTop: spacing.md }}
               />
             </View>
 
@@ -231,7 +235,10 @@ export default function SignUpScreen() {
                 onPress={() => navigation.navigate(ROUTES.LOGIN)}
               >
                 <Text
-                  style={[signUpScreenStyles.footerLink, { color: theme.text }]}
+                  style={[
+                    signUpScreenStyles.footerLink,
+                    { color: theme.muted },
+                  ]}
                 >
                   {STRINGS.auth.signup.loginLink}
                 </Text>

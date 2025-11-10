@@ -1,10 +1,9 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useTheme } from '../../context';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
-import { responsiveFont } from '../../theme/metrics';
-import { fonts } from '../../theme/fonts';
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useTheme } from "../../context";
+import { spacing } from "../../theme/spacing";
+import { fonts } from "../../theme/fonts";
+import { typeScale } from "../../theme/scales";
 
 type HomeHeroSectionProps = {
   title: string;
@@ -45,24 +44,20 @@ const styles = StyleSheet.create({
     // gap: spacing.md,
   },
   title: {
-    fontFamily: fonts.bold,
-    fontSize: responsiveFont(20),
-    textAlign: 'center',
-    textTransform: 'uppercase',
+    fontFamily: typeScale.fontFamily.bold,
+    fontSize: typeScale.fontSize.lg,
+    textAlign: "center",
+    textTransform: "uppercase",
     letterSpacing: 0.5,
   },
   subtitle: {
-    fontFamily: fonts.medium,
-    fontSize: responsiveFont(12),
-    textAlign: 'center',
+    fontFamily: typeScale.fontFamily.medium,
+    fontSize: typeScale.fontSize.sm,
+    textAlign: "center",
   },
   button: {
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm,
     borderRadius: spacing.lg,
-  },
-  buttonLabel: {
-    color: '#FFFFFF',
-    ...typography.label,
   },
 });

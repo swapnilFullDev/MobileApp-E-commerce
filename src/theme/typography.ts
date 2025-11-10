@@ -1,31 +1,86 @@
-import { fonts } from './fonts';
-import { responsiveFont, responsiveLineHeight } from './metrics';
+import {
+  typeScale,
+  FontFamilyToken,
+  FontSizeToken,
+  FontWeightToken,
+  LineHeightToken,
+} from "./scales";
 
 type TypographyStyle = {
   fontFamily: string;
   fontSize: number;
   lineHeight: number;
+  fontWeight: string;
 };
 
-const createTextStyle = (
-  size: number,
-  fontFamily: string,
-  lineHeightMultiplier = 1.35,
-): TypographyStyle => ({
-  fontFamily,
-  fontSize: responsiveFont(size),
-  lineHeight: responsiveLineHeight(size, lineHeightMultiplier),
+type VariantConfig = {
+  size: FontSizeToken;
+  family?: FontFamilyToken;
+  weight?: FontWeightToken;
+  lineHeight?: LineHeightToken;
+};
+
+const createVariant = ({
+  size,
+  family = "regular",
+  weight = "regular",
+  lineHeight,
+}: VariantConfig): TypographyStyle => ({
+  fontFamily: typeScale.fontFamily[family],
+  fontSize: typeScale.fontSize[size],
+  lineHeight: typeScale.lineHeight[lineHeight ?? size],
+  fontWeight: typeScale.fontWeight[weight],
 });
 
 export const typography = {
-  heading: createTextStyle(28, fonts.semiBold, 1.25),
-  subheading: createTextStyle(20, fonts.medium, 1.3),
-  body: createTextStyle(16, fonts.regular, 1.5),
-  caption: createTextStyle(14, fonts.regular, 1.4),
-  button: createTextStyle(16, fonts.semiBold, 1.4),
-  label: createTextStyle(14, fonts.semiBold, 1.3),
-  input: createTextStyle(16, fonts.regular, 1.4),
-  helper: createTextStyle(13, fonts.medium, 1.3),
+  heading: createVariant({
+    size: "xl",
+    family: "semibold",
+    weight: "bold",
+    // lineHeight: "xl",
+  }),
+  subheading: createVariant({
+    size: "lg",
+    family: "medium",
+    weight: "semibold",
+    // lineHeight: "lg",
+  }),
+  body: createVariant({
+    size: "md",
+    family: "regular",
+    weight: "regular",
+    // lineHeight: "md",
+  }),
+  caption: createVariant({
+    size: "sm",
+    family: "regular",
+    weight: "regular",
+    // lineHeight: "sm",
+  }),
+  button: createVariant({
+    size: "md",
+    family: "semibold",
+    weight: "semibold",
+    // lineHeight: "md",
+  }),
+  label: createVariant({
+    size: "sm",
+    family: "semibold",
+    weight: "semibold",
+    // lineHeight: "sm",
+  }),
+  input: createVariant({
+    size: "md",
+    family: "regular",
+    weight: "regular",
+    // lineHeight: "md",
+  }),
+  helper: createVariant({
+    size: "xs",
+    family: "medium",
+    weight: "medium",
+    // lineHeight: "xs",
+  }),
 };
 
 export type TypographyVariant = keyof typeof typography;

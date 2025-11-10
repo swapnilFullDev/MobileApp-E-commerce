@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type MainTabParamList = {
   Home: undefined;
-  Categories: undefined;
+  Categories: { categoryId?: string } | undefined;
   Cart: undefined;
   Profile: undefined;
 };
@@ -24,5 +24,10 @@ export type AuthStackNavigationProp =
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabParamList, 'Home'>,
+  AuthStackNavigationProp
+>;
+
+export type CategoriesScreenNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<MainTabParamList, 'Categories'>,
   AuthStackNavigationProp
 >;

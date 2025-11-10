@@ -1,4 +1,4 @@
-import { forwardRef, ReactNode } from 'react';
+import { forwardRef, ReactNode } from "react";
 import {
   Image,
   StyleSheet,
@@ -7,13 +7,13 @@ import {
   TextInputProps,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { useTheme } from '../../context';
-import { Icons } from '../../constants/images';
-import { scale } from '../../theme/metrics';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
-import { colors } from '../../theme/colors';
+} from "react-native";
+import { useTheme } from "../../context";
+import { Icons } from "../../constants/images";
+import { scale } from "../../theme/metrics";
+import { spacing } from "../../theme/spacing";
+import { radii, typeScale } from "../../theme/scales";
+import { colors } from "../../theme/colors";
 
 type Props = TextInputProps & {
   label?: string;
@@ -29,7 +29,14 @@ const TextInput = forwardRef<RNTextInput, Props>(
     return (
       <View style={styles.container}>
         {label ? (
-          <Text style={[typography.label, { color: theme.muted }]}>
+          <Text
+            style={[
+              styles.label,
+              {
+                color: theme.muted,
+              },
+            ]}
+          >
             {label}
           </Text>
         ) : null}
@@ -46,9 +53,12 @@ const TextInput = forwardRef<RNTextInput, Props>(
             ref={ref}
             placeholderTextColor={theme.muted}
             style={[
-              typography.input,
               styles.input,
-              { color: theme.text, fontFamily: typography.input.fontFamily },
+              {
+                color: theme.text,
+                fontFamily: typeScale.fontFamily.medium,
+                fontSize: typeScale.fontSize.md,
+              },
               style,
             ]}
             {...rest}
@@ -59,12 +69,15 @@ const TextInput = forwardRef<RNTextInput, Props>(
               style={styles.iconContainer}
               hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
             >
-              {typeof rightIcon === 'boolean' ? (
+              {typeof rightIcon === "boolean" ? (
                 <Image
                   source={Icons.eyeShow}
                   style={[
                     styles.icon,
-                    { tintColor: theme.primary, opacity: rest.secureTextEntry ? 1 : 0.5 },
+                    {
+                      tintColor: theme.primary,
+                      opacity: rest.secureTextEntry ? 1 : 0.5,
+                    },
                   ]}
                 />
               ) : (
@@ -73,30 +86,32 @@ const TextInput = forwardRef<RNTextInput, Props>(
             </TouchableOpacity>
           ) : null}
         </View>
-        {error ? (
-          <Text style={styles.errorText}>{error}</Text>
-        ) : null}
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
       </View>
     );
-  },
+  }
 );
 
-TextInput.displayName = 'TextInput';
+TextInput.displayName = "TextInput";
 
 const styles = StyleSheet.create({
   container: {
-    gap: spacing.sm,
+    gap: spacing.xs,
+  },
+  label: {
+    fontFamily: typeScale.fontFamily.semiBold,
+    fontSize: typeScale.fontSize.md,
   },
   inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
-    borderRadius: scale(12),
+    borderRadius: radii.lg,
     paddingHorizontal: spacing.md,
   },
   input: {
     flex: 1,
-    paddingVertical: scale(14),
+    paddingVertical: spacing.md,
   },
   iconContainer: {
     marginLeft: scale(12),
@@ -104,10 +119,11 @@ const styles = StyleSheet.create({
   icon: {
     width: scale(20),
     height: scale(20),
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   errorText: {
-    ...typography.caption,
+    fontFamily: typeScale.fontFamily.regular,
+    fontSize: typeScale.fontSize.xs,
     color: colors.error,
   },
 });

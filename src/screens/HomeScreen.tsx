@@ -18,6 +18,7 @@ import HomeTabs from "../components/home/HomeTabs";
 import HomeTopBar from "../components/home/HomeTopBar";
 import {
   CATEGORIES,
+  CategoryItem,
   FEATURED_COLLECTIONS,
   HOME_TABS,
   NEW_ARRIVALS,
@@ -47,6 +48,10 @@ export default function HomeScreen() {
   const renderProduct = ({ item }: { item: ProductItem }) => (
     <HomeProductCard product={item} onPress={handleProductPress} />
   );
+
+  const handleCategoryPress = (category: CategoryItem) => {
+    navigation.navigate(ROUTES.CATEGORIES, { categoryId: category.id });
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -84,11 +89,18 @@ export default function HomeScreen() {
           ItemSeparatorComponent={() => <View style={{ width: spacing.md }} />}
         />
 
-        <HomeSectionHeader title="Shop by Categories" actionLabel="" />
+        <HomeSectionHeader
+          title="Shop by Categories"
+          actionLabel="See All"
+          onActionPress={() => navigation.navigate(ROUTES.CATEGORIES)}
+        />
         <View style={styles.categoryGrid}>
           {CATEGORIES.map((category) => (
             <View key={category.id} style={styles.categoryItem}>
-              <HomeCategoryCard category={category} />
+              <HomeCategoryCard
+                category={category}
+                onPress={handleCategoryPress}
+              />
             </View>
           ))}
         </View>

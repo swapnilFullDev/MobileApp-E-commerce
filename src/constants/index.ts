@@ -4,6 +4,7 @@ export const ROUTES = {
   SIGN_UP: 'SignUpScreen',
   MAIN_TABS: 'MainTabs',
   PRODUCT_DETAIL: 'ProductDetail',
+  CATEGORIES: 'Categories',
 } as const;
 
 export const APP_COPY = {

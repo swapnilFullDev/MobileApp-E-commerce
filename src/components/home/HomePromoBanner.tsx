@@ -3,9 +3,11 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Images from "../../constants/images";
 import { PromoBanner } from "../../data/home";
 import { useTheme } from "../../context";
-import { scale } from "../../theme/metrics";
+import { scale, width, widthPercent } from "../../theme/metrics";
 import { spacing } from "../../theme/spacing";
-import { typography } from "../../theme/typography";
+import { radii, typeScale } from "../../theme/scales";
+import { colors } from "../../theme/colors";
+import { AnimatedTouchableOpacity } from "../common";
 
 type HomePromoBannerProps = {
   banner: PromoBanner;
@@ -35,13 +37,12 @@ export default function HomePromoBanner({
         <Text style={[styles.subtitle, { color: theme.muted }]}>
           {banner.subtitle}
         </Text>
-        <TouchableOpacity
+        <AnimatedTouchableOpacity
           style={[styles.button, { backgroundColor: theme.primary }]}
           onPress={() => onPress?.(banner)}
-          activeOpacity={0.9}
         >
           <Text style={styles.buttonLabel}>{banner.cta}</Text>
-        </TouchableOpacity>
+        </AnimatedTouchableOpacity>
       </View>
       <Image source={Images[banner.rightImage]} style={styles.sideImage} />
     </View>
@@ -59,10 +60,10 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   sideImage: {
-    width: scale(60),
-    height: scale(120),
+    width: widthPercent(0.14),
+    height: widthPercent(0.26),
     resizeMode: "cover",
-    borderRadius: spacing.sm,
+    borderRadius: radii.md,
   },
   content: {
     flex: 1,
@@ -70,11 +71,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    ...typography.subheading,
+    fontFamily: typeScale.fontFamily.medium,
+    fontSize: typeScale.fontSize.lg,
     textAlign: "center",
   },
   subtitle: {
-    ...typography.caption,
+    fontFamily: typeScale.fontFamily.regular,
+    fontSize: typeScale.fontSize.xs,
     textAlign: "center",
   },
   button: {
@@ -84,6 +87,7 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     color: "#FFFFFF",
-    ...typography.label,
+    fontFamily: typeScale.fontFamily.semiBold,
+    fontSize: typeScale.fontSize.sm,
   },
 });

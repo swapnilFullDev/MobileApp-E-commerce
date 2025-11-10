@@ -1,6 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
-  Image,
+  Animated,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   Pressable,
   ScrollView,
   StatusBar,
@@ -9,16 +17,19 @@ import {
 } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import Button from "../components/common/Button";
-import Images, { Icons } from "../constants/images";
 import { PRODUCT_DETAILS } from "../data/products";
 import { AuthStackNavigationProp, AuthStackParamList } from "../navigation";
-import { useTheme } from "../context";
-import { spacing } from "../theme/spacing";
+import { useTheme, useToast } from "../context";
 import { productDetailStyles as styles } from "../styles/product/productDetailStyles";
 import FulfillmentToggle from "../components/product/FulfillmentToggle";
 import ProductPricingSection from "../components/product/ProductPricingSection";
 import RentalDetailsCard from "../components/product/RentalDetailsCard";
 import PurchaseDetailsCard from "../components/product/PurchaseDetailsCard";
+import ProductHero from "../components/product/ProductHero";
+import ProductSummary from "../components/product/ProductSummary";
+import SimilarProductCard, {
+  mapProductDetailToCardData,
+} from "../components/product/SimilarProductCard";
 
 type ProductDetailScreenRouteProp = RouteProp<
   AuthStackParamList,
@@ -29,6 +40,7 @@ export default function ProductDetailScreen() {
   const navigation = useNavigation<AuthStackNavigationProp>();
   const route = useRoute<ProductDetailScreenRouteProp>();
   const { theme } = useTheme();
+  const { showSuccess, showInfo } = useToast();
 
   const product = useMemo(() => {
     if (!route.params?.productId) {
@@ -56,6 +68,11 @@ export default function ProductDetailScreen() {
     rentAvailable ? "rent" : "buy"
   );
 
+  const [isActionBarVisible, setIsActionBarVisible] = useState(true);
+  const [actionBarHeight, setActionBarHeight] = useState(0);
+  const actionBarTranslateY = useRef(new Animated.Value(0)).current;
+  const lastScrollOffset = useRef(0);
+
   useEffect(() => {
     setSelectedImage(product.gallery[0] ?? product.image);
     setSelectedSize(product.sizes[0] ?? "");
@@ -63,6 +80,42 @@ export default function ProductDetailScreen() {
     setSelectedDuration(product.rentalDurationOptions[0] ?? 3);
     setFulfillmentMode(rentAvailable ? "rent" : "buy");
   }, [product, rentAvailable]);
+
+  useEffect(() => {
+    const hiddenTranslate = actionBarHeight || 120;
+
+    Animated.timing(actionBarTranslateY, {
+      toValue: isActionBarVisible ? 0 : hiddenTranslate,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, [actionBarHeight, actionBarTranslateY, isActionBarVisible]);
+
+  const handleScroll = useCallback(
+    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+      const currentOffset = event.nativeEvent.contentOffset.y;
+      const diff = currentOffset - lastScrollOffset.current;
+
+      if (Math.abs(diff) < 5) {
+        return;
+      }
+
+      const direction = diff > 0 ? "down" : "up";
+      lastScrollOffset.current = currentOffset;
+
+      if (currentOffset <= 0) {
+        setIsActionBarVisible(true);
+        return;
+      }
+
+      if (direction === "down" && !isActionBarVisible) {
+        setIsActionBarVisible(true);
+      } else if (direction === "up" && isActionBarVisible) {
+        setIsActionBarVisible(false);
+      }
+    },
+    [isActionBarVisible]
+  );
 
   const rentalTotalCost = selectedDuration * product.rentalPricePerDay;
   const isRenting = rentAvailable && fulfillmentMode === "rent";
@@ -92,41 +145,44 @@ export default function ProductDetailScreen() {
     [product.id]
   );
 
+  const handlePrimaryAction = () => {
+    if (isRenting) {
+      showSuccess(
+        `We saved a ${selectedDuration}-day rental for ${product.title}.`,
+        "Rental Reserved"
+      );
+      return;
+    }
+
+    showSuccess(`${product.title} is ready to checkout.`, "Added to Cart");
+  };
+
+  const handleSecondaryAction = () => {
+    const actionMessage = isRenting ? "Saved for later" : "Added to wishlist";
+
+    showInfo(`${product.title} will be waiting for you.`, actionMessage, 2600);
+  };
+
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <StatusBar
         barStyle={theme.name === "light" ? "dark-content" : "light-content"}
       />
-      <View
-        style={[
-          styles.header,
-          {
-            borderBottomColor: theme.border,
-          },
-        ]}
-      >
-        <Pressable
-          style={[
-            styles.backButton,
-            {
-              borderColor: theme.border,
-              backgroundColor: theme.surface,
-            },
-          ]}
-          onPress={() => navigation.goBack()}
-          hitSlop={spacing.sm}
-        >
-          <Image source={Icons.leftArrow} style={styles.backLabel} />
-        </Pressable>
-        <Text style={[styles.headerTitle, { color: theme.text }]}>
-          Product Details
-        </Text>
-        <View style={styles.headerSpacer} />
-      </View>
-      <ScrollView
+
+      <Animated.ScrollView
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
       >
+        <ProductHero
+          imageKey={selectedImage}
+          gallery={product.gallery}
+          selectedImage={selectedImage}
+          onSelectImage={setSelectedImage}
+          onBack={() => navigation.goBack()}
+          theme={theme}
+        />
         {rentAvailable && canPurchase ? (
           <FulfillmentToggle
             mode={fulfillmentMode}
@@ -135,68 +191,13 @@ export default function ProductDetailScreen() {
             theme={theme}
           />
         ) : null}
-        <View
-          style={[
-            styles.heroCard,
-            {
-              backgroundColor: theme.surface,
-              borderColor: theme.border,
-            },
-          ]}
-        >
-          <Image
-            source={Images[selectedImage]}
-            style={styles.heroImage}
-            resizeMode="cover"
-          />
-          <View style={styles.thumbnailRow}>
-            {product.gallery.map((imageKey) => (
-              <Pressable
-                key={imageKey}
-                onPress={() => setSelectedImage(imageKey)}
-                style={[
-                  styles.thumbnail,
-                  {
-                    borderColor:
-                      selectedImage === imageKey ? theme.primary : theme.border,
-                  },
-                ]}
-              >
-                <Image
-                  source={Images[imageKey]}
-                  style={styles.thumbnailImage}
-                  resizeMode="cover"
-                />
-              </Pressable>
-            ))}
-          </View>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={[styles.title, { color: theme.text }]}>
-            {product.title}
-          </Text>
-          <Text style={[styles.rentalTagline, { color: theme.secondaryText }]}>
-            Premium outfit rentals tailored for your celebrations
-          </Text>
-          <View style={styles.ratingRow}>
-            <Text style={[styles.ratingValue, { color: theme.primary }]}>
-              {product.rating.toFixed(1)}
-            </Text>
-            <Text style={[styles.ratingStars, { color: theme.primary }]}>
-              {generateRatingStars(product.rating)}
-            </Text>
-            <Text style={[styles.reviewsText, { color: theme.secondaryText }]}>
-              ({product.reviewsCount} reviews)
-            </Text>
-          </View>
-          <ProductPricingSection
-            product={product}
-            isRenting={isRenting}
-            buyAvailable={buyAvailable}
-            theme={theme}
-          />
-        </View>
+        <ProductSummary product={product} theme={theme} />
+        <ProductPricingSection
+          product={product}
+          isRenting={isRenting}
+          buyAvailable={buyAvailable}
+          theme={theme}
+        />
 
         {isRenting ? (
           <RentalDetailsCard
@@ -348,69 +349,34 @@ export default function ProductDetailScreen() {
               contentContainerStyle={styles.similarList}
             >
               {similarProducts.map((item) => (
-                <Pressable
+                <SimilarProductCard
                   key={item.id}
-                  style={[
-                    styles.similarCard,
-                    {
-                      backgroundColor: theme.surface,
-                      borderColor: theme.border,
-                    },
-                  ]}
+                  item={mapProductDetailToCardData(item)}
+                  theme={theme}
                   onPress={() =>
                     navigation.push("ProductDetail", { productId: item.id })
                   }
-                >
-                  <Image
-                    source={Images[item.image]}
-                    style={styles.similarImage}
-                    resizeMode="cover"
-                  />
-                  <View style={styles.similarInfo}>
-                    <Text
-                      style={[styles.similarTitle, { color: theme.text }]}
-                      numberOfLines={2}
-                    >
-                      {item.title}
-                    </Text>
-                    <View style={styles.similarPriceRow}>
-                      {item.originalPrice ? (
-                        <Text style={styles.similarOriginalPrice}>
-                          {item.originalPrice}
-                        </Text>
-                      ) : null}
-                      <Text
-                        style={[styles.similarPrice, { color: theme.text }]}
-                      >
-                        {item.price}
-                      </Text>
-                      {item.discountLabel ? (
-                        <Text
-                          style={[
-                            styles.similarDiscount,
-                            { color: theme.primary },
-                          ]}
-                        >
-                          {item.discountLabel}
-                        </Text>
-                      ) : null}
-                    </View>
-                  </View>
-                </Pressable>
+                />
               ))}
             </ScrollView>
           </View>
         ) : null}
-      </ScrollView>
+      </Animated.ScrollView>
 
-      <View
+      <Animated.View
         style={[
           styles.actionBar,
           {
             backgroundColor: theme.surface,
             borderTopColor: theme.border,
+            transform: [{ translateY: actionBarTranslateY }],
           },
         ]}
+        onLayout={({ nativeEvent: { layout } }) => {
+          if (layout.height !== actionBarHeight) {
+            setActionBarHeight(layout.height);
+          }
+        }}
       >
         <View style={styles.actionInfo}>
           <Text style={[styles.summaryLabel, { color: theme.secondaryText }]}>
@@ -426,25 +392,19 @@ export default function ProductDetailScreen() {
         <View style={styles.actionButtons}>
           <Button
             title={primaryActionLabel}
-            onPress={() => {}}
+            onPress={handlePrimaryAction}
             fullWidth
             style={styles.primaryButton}
           />
           <Button
             title={secondaryActionLabel}
-            onPress={() => {}}
+            onPress={handleSecondaryAction}
             fullWidth
             style={styles.secondaryButton}
+            backgroundColor={"#2F2D2D"}
           />
         </View>
-      </View>
+      </Animated.View>
     </View>
   );
-}
-
-function generateRatingStars(rating: number) {
-  const rounded = Math.round(rating);
-  return Array.from({ length: 5 })
-    .map((_, index) => (index < rounded ? "*" : "-"))
-    .join(" ");
 }

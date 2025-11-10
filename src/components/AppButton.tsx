@@ -1,14 +1,14 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 import {
   ActivityIndicator,
   Pressable,
   StyleSheet,
   Text,
   ViewStyle,
-} from 'react-native';
-import { colors } from '../theme/colors';
-import { spacing } from '../theme/spacing';
-import { typography } from '../theme/typography';
+} from "react-native";
+import { colors } from "../theme/colors";
+import { spacing } from "../theme/spacing";
+import { typeScale } from "../theme/scales";
 
 type AppButtonProps = {
   label: string;
@@ -54,9 +54,9 @@ export function AppButton({
 
 const styles = StyleSheet.create({
   button: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.primary,
     paddingVertical: spacing.md,
     borderRadius: spacing.sm,
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: colors.backgroundLight,
-    ...typography.button,
+    fontFamily: typeScale.fontFamily.semiBold,
+    fontSize: typeScale.fontSize.md,
   },
 });

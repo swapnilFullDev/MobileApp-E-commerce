@@ -15,6 +15,9 @@ import { moderateScale } from "../../theme/metrics";
 import { spacing } from "../../theme/spacing";
 import { radius } from "../../theme/radius";
 import { fonts } from "../../theme/fonts";
+import { typeScale } from "../../theme";
+import { colors } from "../../theme/colors";
+import { AnimatedTouchableOpacity } from "../common";
 
 type HomeCategoryCardProps = {
   category: CategoryItem;
@@ -30,7 +33,7 @@ export default function HomeCategoryCard({
   const { theme } = useTheme();
 
   return (
-    <TouchableOpacity
+    <AnimatedTouchableOpacity
       style={[
         styles.container,
         {
@@ -39,7 +42,6 @@ export default function HomeCategoryCard({
         style,
       ]}
       onPress={() => onPress?.(category)}
-      activeOpacity={0.9}
     >
       <ImageBackground
         source={Images[category.image]}
@@ -49,7 +51,7 @@ export default function HomeCategoryCard({
         <View style={styles.overlay} />
         <Text style={styles.label}>{category.label}</Text>
       </ImageBackground>
-    </TouchableOpacity>
+    </AnimatedTouchableOpacity>
   );
 }
 
@@ -74,9 +76,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#00000055",
   },
   label: {
-    fontFamily: fonts.semiBold,
-    fontSize: moderateScale(18),
-    color: "#FFFFFF",
+    fontFamily: typeScale.fontFamily.medium,
+    fontSize: typeScale.fontSize.md,
+    color: colors.white,
     textAlign: "center",
   },
 });

@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
-import { scale } from "../../theme/metrics";
+import { scale, widthPercent } from "../../theme/metrics";
 import { spacing } from "../../theme/spacing";
-import { typography } from "../../theme/typography";
+import { typeScale } from "../../theme/scales";
 
 export const signUpScreenStyles = StyleSheet.create({
   wrapper: {
@@ -36,21 +36,22 @@ export const signUpScreenStyles = StyleSheet.create({
     marginHorizontal: spacing.md,
   },
   checkbox: {
-    width: scale(20),
-    height: scale(20),
+    width: widthPercent(0.05),
+    height: widthPercent(0.05),
     borderRadius: scale(4),
     borderWidth: 1.5,
     alignItems: "center",
     justifyContent: "center",
   },
   checkboxChecked: {
-    width: scale(12),
-    height: scale(12),
+    width: widthPercent(0.05),
+    height: widthPercent(0.05),
     borderRadius: scale(2),
   },
   termsText: {
-    ...typography.caption,
     textAlign: "center",
+    fontSize: typeScale.fontSize.sm,
+    fontFamily: typeScale.fontFamily.medium,
   },
   divider: {
     flexDirection: "row",
@@ -63,8 +64,9 @@ export const signUpScreenStyles = StyleSheet.create({
     height: 1,
   },
   dividerText: {
-    ...typography.caption,
     textTransform: "uppercase",
+    fontSize: typeScale.fontSize.xs,
+    fontFamily: typeScale.fontFamily.medium,
   },
   socialButtonsContainer: {
     flexDirection: "row",
@@ -72,24 +74,7 @@ export const signUpScreenStyles = StyleSheet.create({
     alignItems: "center",
     gap: spacing.md,
   },
-  socialButton: {
-    width: scale(56),
-    height: scale(56),
-    borderRadius: scale(28),
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 3,
-  },
-  socialIcon: {
-    width: scale(28),
-    height: scale(28),
-    resizeMode: "contain",
-  },
+
   footer: {
     flexDirection: "row",
     justifyContent: "center",
@@ -98,10 +83,11 @@ export const signUpScreenStyles = StyleSheet.create({
     marginTop: spacing.lg,
   },
   footerText: {
-    ...typography.body,
+    fontSize: typeScale.fontSize.md,
+    fontFamily: typeScale.fontFamily.medium,
   },
   footerLink: {
-    ...typography.label,
+    fontSize: typeScale.fontSize.md,
+    fontFamily: typeScale.fontFamily.bold,
   },
 });
-

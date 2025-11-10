@@ -1,11 +1,11 @@
-import React from 'react';
-import { Image, StyleSheet, TextInput, View } from 'react-native';
-import Images from '../../constants/images';
-import { useTheme } from '../../context';
-import { scale } from '../../theme/metrics';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
-import { radius } from '../../theme/radius';
+import React from "react";
+import { Image, StyleSheet, TextInput, View } from "react-native";
+import Images from "../../constants/images";
+import { useTheme } from "../../context";
+import { scale, widthPercent } from "../../theme/metrics";
+import { spacing } from "../../theme/spacing";
+import { radii, typeScale } from "../../theme/scales";
+import { colors } from "../../theme/colors";
 
 type HomeSearchBarProps = {
   value: string;
@@ -16,7 +16,7 @@ type HomeSearchBarProps = {
 
 export default function HomeSearchBar({
   value,
-  placeholder = 'Search for Attire...',
+  placeholder = "Search for Attire...",
   onChangeText,
   onSubmitEditing,
 }: HomeSearchBarProps) {
@@ -51,20 +51,22 @@ export default function HomeSearchBar({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginHorizontal: spacing.md,
     borderWidth: 1,
-    borderRadius: radius.xl,
+    borderRadius: radii.md,
     paddingHorizontal: spacing.md,
     gap: spacing.sm,
   },
   icon: {
-    width: scale(18),
-    height: scale(18),
+    width: widthPercent(0.05),
+    height: widthPercent(0.05),
   },
   input: {
     flex: 1,
-    ...typography.body,
+    fontFamily: typeScale.fontFamily.medium,
+    fontSize: typeScale.fontSize.md,
+    color: colors.textSecondary,
   },
 });

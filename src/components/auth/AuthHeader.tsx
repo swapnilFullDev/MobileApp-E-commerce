@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Image,
   ImageSourcePropType,
@@ -6,12 +6,12 @@ import {
   Text,
   View,
   ViewStyle,
-} from 'react-native';
-import Images from '../../constants/images';
-import { useTheme } from '../../context';
-import { scale, verticalScale } from '../../theme/metrics';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
+} from "react-native";
+import Images from "../../constants/images";
+import { useTheme } from "../../context";
+import { scale, verticalScale, widthPercent } from "../../theme/metrics";
+import { spacing } from "../../theme/spacing";
+import { typeScale } from "../../theme/scales";
 
 type AuthHeaderProps = {
   title: string;
@@ -63,12 +63,12 @@ export default function AuthHeader({
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   badgeContainer: {
-    alignSelf: 'flex-end',
-    width: '100%',
-    alignItems: 'flex-end',
+    alignSelf: "flex-end",
+    width: "100%",
+    alignItems: "flex-end",
   },
   badge: {
     paddingHorizontal: scale(12),
@@ -76,28 +76,31 @@ const styles = StyleSheet.create({
     borderRadius: 999,
   },
   badgeText: {
-    ...typography.caption,
-    textTransform: 'uppercase',
-    color: '#FFFFFF',
+    fontFamily: typeScale.fontFamily.semiBold,
+    fontSize: typeScale.fontSize.xs,
+    textTransform: "uppercase",
+    color: "#FFFFFF",
   },
   logoContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   logo: {
-    width: scale(180),
-    height: verticalScale(80),
-    resizeMode: 'contain',
+    width: widthPercent(0.48),
+    height: widthPercent(0.2),
+    resizeMode: "contain",
   },
   textContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     gap: spacing.xs,
   },
   title: {
-    ...typography.heading,
-    textAlign: 'center',
+    fontFamily: typeScale.fontFamily.bold,
+    fontSize: typeScale.fontSize.xl,
+    textAlign: "center",
   },
   subtitle: {
-    ...typography.body,
-    textAlign: 'center',
+    fontFamily: typeScale.fontFamily.medium,
+    fontSize: typeScale.fontSize.md,
+    textAlign: "center",
   },
 });

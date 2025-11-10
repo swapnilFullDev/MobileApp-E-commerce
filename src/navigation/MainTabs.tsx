@@ -11,6 +11,8 @@ import { spacing } from "../theme/spacing";
 import { fonts } from "../theme/fonts";
 import { radius } from "../theme/radius";
 import Images, { Tabs } from "../constants/images";
+import { radii, typeScale } from "../theme";
+import { widthPercent } from "../theme/metrics";
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -132,24 +134,24 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     padding: spacing.xs * 0.5,
-    borderRadius: radius.full,
+    borderRadius: radii.xxl,
   },
   iconContainer: {
-    width: 32,
-    height: 32,
+    width: widthPercent(0.08),
+    height: widthPercent(0.08),
     alignItems: "center",
     justifyContent: "center",
   },
   iconImage: {
-    width: 22,
-    height: 22,
+    width: widthPercent(0.05),
+    height: widthPercent(0.05),
   },
   badge: {
     position: "absolute",
     top: -4,
     right: -8,
     backgroundColor: "#DC2626",
-    borderRadius: radius.full,
+    borderRadius: radii.xxl,
     minWidth: 18,
     minHeight: 18,
     paddingHorizontal: 4,
@@ -158,7 +160,7 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     color: "#FFFFFF",
-    fontSize: 11,
+    fontSize: typeScale.fontSize.xs,
     fontFamily: fonts.bold,
   },
 });

@@ -1,17 +1,18 @@
-import React from 'react';
+import React from "react";
 import {
   StyleSheet,
   Text,
   TouchableOpacity,
   ViewStyle,
   View,
-} from 'react-native';
-import { useTheme } from '../../context';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
-import { fonts } from '../../theme/fonts';
-import { responsiveFont, scale } from '../../theme/metrics';
-import { radius } from '../../theme/radius';
+} from "react-native";
+import { useTheme } from "../../context";
+import { spacing } from "../../theme/spacing";
+import { fonts } from "../../theme/fonts";
+import { scale, widthPercent } from "../../theme/metrics";
+import { radii, typeScale } from "../../theme/scales";
+import { colors } from "../../theme/colors";
+import { AnimatedTouchableOpacity } from "../common";
 
 type HomeSectionHeaderProps = {
   title: string;
@@ -32,13 +33,12 @@ export default function HomeSectionHeader({
     <View style={[styles.container, containerStyle]}>
       <Text style={[styles.title, { color: theme.text }]}>{title}</Text>
       {actionLabel ? (
-        <TouchableOpacity
+        <AnimatedTouchableOpacity
           onPress={onActionPress}
           style={[styles.actionButton, { backgroundColor: theme.primary }]}
-          activeOpacity={0.9}
         >
           <Text style={styles.actionLabel}>{actionLabel}</Text>
-        </TouchableOpacity>
+        </AnimatedTouchableOpacity>
       ) : null}
     </View>
   );
@@ -46,25 +46,27 @@ export default function HomeSectionHeader({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: spacing.md,
     // marginTop: spacing.lg,
   },
   title: {
     fontFamily: fonts.bold,
-    fontSize: responsiveFont(20),
-    textTransform: 'capitalize',
+    fontSize: typeScale.fontSize.lg,
+    textTransform: "capitalize",
+    color: colors.textPrimary,
   },
   actionButton: {
     paddingHorizontal: spacing.lg,
-    paddingVertical: scale(6),
-    borderRadius: radius.md,
+    paddingVertical: widthPercent(0.012),
+    borderRadius: radii.md,
   },
   actionLabel: {
-    color: '#FFFFFF',
-    ...typography.label,
-    textTransform: 'capitalize',
+    color: colors.white,
+    fontFamily: typeScale.fontFamily.semiBold,
+    fontSize: typeScale.fontSize.sm,
+    textTransform: "capitalize",
   },
 });

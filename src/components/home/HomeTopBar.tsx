@@ -1,9 +1,9 @@
-import React from 'react';
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Images from '../../constants/images';
-import { useTheme } from '../../context';
-import { scale } from '../../theme/metrics';
-import { spacing } from '../../theme/spacing';
+import React from "react";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import Images from "../../constants/images";
+import { useTheme } from "../../context";
+import { scale, widthPercent } from "../../theme/metrics";
+import { spacing } from "../../theme/spacing";
 
 type HomeTopBarProps = {
   onSearchPress?: () => void;
@@ -22,7 +22,7 @@ export default function HomeTopBar({
 
   const renderIconButton = (
     icon: keyof typeof Images,
-    onPress?: () => void,
+    onPress?: () => void
   ) => (
     <TouchableOpacity
       key={icon}
@@ -43,9 +43,9 @@ export default function HomeTopBar({
         <Image source={Images.brandName} style={styles.logo} />
       </TouchableOpacity>
       <View style={styles.actions}>
-        {renderIconButton('search', onSearchPress)}
-        {renderIconButton('shopping', onCartPress)}
-        {renderIconButton('user', onProfilePress)}
+        {renderIconButton("search", onSearchPress)}
+        {renderIconButton("shopping", onCartPress)}
+        {renderIconButton("user", onProfilePress)}
       </View>
     </View>
   );
@@ -53,31 +53,31 @@ export default function HomeTopBar({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: spacing.md,
     paddingTop: spacing.md,
   },
   logo: {
-    width: scale(126),
-    height: scale(48),
-    resizeMode: 'contain',
+    width: widthPercent(0.36),
+    height: widthPercent(0.12),
+    resizeMode: "contain",
   },
   actions: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: spacing.md,
   },
   iconButton: {
-    width: scale(24),
-    height: scale(24),
+    width: widthPercent(0.07),
+    height: widthPercent(0.07),
     borderRadius: scale(20),
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   icon: {
-    width: scale(24),
-    height: scale(24),
-    resizeMode: 'contain',
+    width: widthPercent(0.06),
+    height: widthPercent(0.06),
+    resizeMode: "contain",
   },
 });

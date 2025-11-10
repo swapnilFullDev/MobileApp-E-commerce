@@ -1,21 +1,21 @@
-import { ReactNode } from 'react';
-import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { colors } from '../theme/colors';
+import { ReactNode } from "react";
+import { StatusBar, StyleSheet, useColorScheme, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { colors } from "../theme/colors";
 
 type AppContainerProps = {
   children: ReactNode;
 };
 
 export default function AppContainer({ children }: AppContainerProps) {
-  const isDarkMode = useColorScheme() === 'dark';
+  const isDarkMode = useColorScheme() === "dark";
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <View style={styles.container}>
+      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
       <SafeAreaView
         style={[
-          styles.container,
+          styles.safeArea,
           {
             backgroundColor: isDarkMode
               ? colors.backgroundDark
@@ -25,12 +25,15 @@ export default function AppContainer({ children }: AppContainerProps) {
       >
         {children}
       </SafeAreaView>
-    </SafeAreaProvider>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+  },
+  safeArea: {
     flex: 1,
   },
 });

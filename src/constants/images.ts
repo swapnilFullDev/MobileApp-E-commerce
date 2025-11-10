@@ -21,6 +21,8 @@ const Icons: Record<string, ImageSourcePropType> = {
   facebook: require("../assets/icons/facebookIcon.png"),
   google: require("../assets/icons/googleIcon.png"),
   leftArrow: require("../assets/icons/left-arrow.png"),
+  love: require("../assets/icons/love.png"),
+  loveFilled: require("../assets/icons/loveFilled.png"),
 };
 
 const Tabs: Record<string, ImageSourcePropType> = {

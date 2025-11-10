@@ -1,8 +1,8 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { useTheme } from '../context';
-import { spacing } from '../theme/spacing';
-import { fonts } from '../theme/fonts';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { useTheme } from "../context";
+import { spacing } from "../theme/spacing";
+import { typeScale } from "../theme/scales";
 
 export default function ProfileScreen() {
   const { theme } = useTheme();
@@ -20,19 +20,19 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: spacing.lg,
     gap: spacing.sm,
   },
   title: {
-    fontFamily: fonts.semiBold,
-    fontSize: 24,
+    fontFamily: typeScale.fontFamily.semibold,
+    fontSize: typeScale.fontSize.xxl,
   },
   subtitle: {
-    fontFamily: fonts.regular,
-    fontSize: 16,
-    textAlign: 'center',
+    fontFamily: typeScale.fontFamily.regular,
+    fontSize: typeScale.fontSize.md,
+    textAlign: "center",
   },
 });
 

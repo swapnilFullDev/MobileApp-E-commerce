@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import { fonts } from "../../theme/fonts";
-import { scale } from "../../theme/metrics";
+import { scale, widthPercent } from "../../theme/metrics";
 import { spacing } from "../../theme/spacing";
-import { typography } from "../../theme/typography";
+import { typeScale } from "../../theme/scales";
 
 export const loginScreenStyles = StyleSheet.create({
   wrapper: {
@@ -52,11 +52,12 @@ export const loginScreenStyles = StyleSheet.create({
     borderRadius: scale(2),
   },
   rememberText: {
-    ...typography.body,
-    fontFamily: fonts.medium,
+    fontSize: typeScale.fontSize.md,
+    fontFamily: typeScale.fontFamily.medium,
   },
   actionLink: {
-    ...typography.label,
+    fontSize: typeScale.fontSize.md,
+    fontFamily: typeScale.fontFamily.medium,
   },
   divider: {
     flexDirection: "row",
@@ -69,12 +70,13 @@ export const loginScreenStyles = StyleSheet.create({
     height: 1,
   },
   dividerText: {
-    ...typography.caption,
+    fontSize: typeScale.fontSize.md,
     fontFamily: fonts.medium,
   },
   continueText: {
     textAlign: "center",
-    ...typography.label,
+    fontSize: typeScale.fontSize.sm,
+    fontFamily: typeScale.fontFamily.semiBold,
   },
   socialButtonsContainer: {
     flexDirection: "row",
@@ -82,8 +84,8 @@ export const loginScreenStyles = StyleSheet.create({
     alignItems: "center",
   },
   socialButton: {
-    width: scale(56),
-    height: scale(56),
+    width: widthPercent(0.14),
+    height: widthPercent(0.14),
     borderRadius: scale(28),
     backgroundColor: "#FFFFFF",
     alignItems: "center",
@@ -95,8 +97,8 @@ export const loginScreenStyles = StyleSheet.create({
     elevation: 3,
   },
   socialIcon: {
-    width: scale(56),
-    height: scale(56),
+    width: widthPercent(0.14),
+    height: widthPercent(0.14),
     resizeMode: "contain",
   },
   signupRow: {
@@ -104,9 +106,10 @@ export const loginScreenStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap: spacing.xs,
+    paddingTop: spacing.xxl,
   },
   signupText: {
-    ...typography.body,
+    fontSize: typeScale.fontSize.md,
+    fontFamily: typeScale.fontFamily.medium,
   },
 });
-

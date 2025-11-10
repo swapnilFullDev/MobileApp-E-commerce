@@ -1,0 +1,261 @@
+import Images from "../constants/images";
+
+export type CategorySubcategory = {
+  id: string;
+  label: string;
+};
+
+export type CategoryListingProduct = {
+  id: string;
+  categoryId: string;
+  subcategoryId: string;
+  title: string;
+  brand: string;
+  price: number;
+  originalPrice?: number;
+  discountPercent?: number;
+  rating: number;
+  reviews: number;
+  image: keyof typeof Images;
+};
+
+export const DEFAULT_CATEGORY_SUBCATEGORIES: CategorySubcategory[] = [
+  { id: "all", label: "All" },
+  { id: "new", label: "New In" },
+  { id: "best", label: "Best Sellers" },
+  { id: "sale", label: "On Sale" },
+  { id: "budget", label: "Under ₹5k" },
+];
+
+export const CATEGORY_SUBCATEGORIES: Record<
+  string,
+  CategorySubcategory[] | undefined
+> = {
+  category1: [
+    { id: "all", label: "All" },
+    { id: "lehengas", label: "Lehengas" },
+    { id: "sarees", label: "Sarees" },
+    { id: "gowns", label: "Gowns" },
+    { id: "bridal_accessories", label: "Accessories" },
+  ],
+  category2: [
+    { id: "all", label: "All" },
+    { id: "suits", label: "Suit Sets" },
+    { id: "kurta", label: "Kurtas" },
+    { id: "anarkali", label: "Anarkali" },
+    { id: "drapes", label: "Drapes" },
+  ],
+  category3: [
+    { id: "all", label: "All" },
+    { id: "fusion", label: "Fusion Wear" },
+    { id: "co_ords", label: "Co-ords" },
+    { id: "jackets", label: "Jackets" },
+    { id: "evening", label: "Evening" },
+  ],
+  category4: [
+    { id: "all", label: "All" },
+    { id: "jewellery", label: "Jewellery" },
+    { id: "bags", label: "Bags" },
+    { id: "footwear", label: "Footwear" },
+    { id: "hair", label: "Hair Accessories" },
+  ],
+};
+
+export const CATEGORY_PRODUCTS: CategoryListingProduct[] = [
+  {
+    id: "product2",
+    categoryId: "category1",
+    subcategoryId: "lehengas",
+    title: "Ivory Embroidered Lehenga",
+    brand: "AttireBandhan Luxe",
+    price: 14299,
+    originalPrice: 16999,
+    discountPercent: 16,
+    rating: 4.8,
+    reviews: 204,
+    image: "placeholder1",
+  },
+  {
+    id: "product3",
+    categoryId: "category1",
+    subcategoryId: "sarees",
+    title: "Satin Drape Saree",
+    brand: "Taneira",
+    price: 8999,
+    originalPrice: 9999,
+    discountPercent: 10,
+    rating: 4.6,
+    reviews: 156,
+    image: "placeholder4",
+  },
+  {
+    id: "bridal_gown_1",
+    categoryId: "category1",
+    subcategoryId: "gowns",
+    title: "Sequin Trail Bridal Gown",
+    brand: "House of Neeta",
+    price: 18999,
+    originalPrice: 21999,
+    discountPercent: 14,
+    rating: 4.9,
+    reviews: 87,
+    image: "placeholder2",
+  },
+  {
+    id: "bridal_accessory_1",
+    categoryId: "category1",
+    subcategoryId: "bridal_accessories",
+    title: "Kundan Bridal Set",
+    brand: "Anika Jewels",
+    price: 4499,
+    originalPrice: 5299,
+    discountPercent: 15,
+    rating: 4.7,
+    reviews: 63,
+    image: "placeholder3",
+  },
+  {
+    id: "category2_kurta_1",
+    categoryId: "category2",
+    subcategoryId: "kurta",
+    title: "Embellished Organza Kurta",
+    brand: "Anokhi",
+    price: 5599,
+    originalPrice: 6599,
+    discountPercent: 15,
+    rating: 4.5,
+    reviews: 94,
+    image: "placeholder2",
+  },
+  {
+    id: "category2_anarkali_1",
+    categoryId: "category2",
+    subcategoryId: "anarkali",
+    title: "Layered Anarkali Dress",
+    brand: "Fabindia",
+    price: 6399,
+    originalPrice: 7299,
+    discountPercent: 12,
+    rating: 4.4,
+    reviews: 112,
+    image: "placeholder1",
+  },
+  {
+    id: "category3_fusion_1",
+    categoryId: "category3",
+    subcategoryId: "fusion",
+    title: "Drape Jumpsuit Set",
+    brand: "Global Desi",
+    price: 4999,
+    originalPrice: 5799,
+    discountPercent: 14,
+    rating: 4.3,
+    reviews: 78,
+    image: "placeholder3",
+  },
+  {
+    id: "category3_evening_1",
+    categoryId: "category3",
+    subcategoryId: "evening",
+    title: "Embellished Cape Dress",
+    brand: "Label Ritu Kumar",
+    price: 7699,
+    originalPrice: 8599,
+    discountPercent: 11,
+    rating: 4.6,
+    reviews: 54,
+    image: "placeholder4",
+  },
+  {
+    id: "category4_jewellery_1",
+    categoryId: "category4",
+    subcategoryId: "jewellery",
+    title: "Pearl Studded Earrings",
+    brand: "Tribe Amrapali",
+    price: 2499,
+    originalPrice: 2899,
+    discountPercent: 14,
+    rating: 4.8,
+    reviews: 132,
+    image: "placeholder1",
+  },
+  {
+    id: "category4_bags_1",
+    categoryId: "category4",
+    subcategoryId: "bags",
+    title: "Embroidered Potli Bag",
+    brand: "Jaypore",
+    price: 1999,
+    originalPrice: 2399,
+    discountPercent: 17,
+    rating: 4.5,
+    reviews: 88,
+    image: "placeholder2",
+  },
+  {
+    id: "category4_footwear_1",
+    categoryId: "category4",
+    subcategoryId: "footwear",
+    title: "Mirror Work Kolhapuris",
+    brand: "Needledust",
+    price: 3299,
+    originalPrice: 3699,
+    discountPercent: 11,
+    rating: 4.4,
+    reviews: 72,
+    image: "placeholder3",
+  },
+  {
+    id: "new_arrival_1",
+    categoryId: "category2",
+    subcategoryId: "suits",
+    title: "Handloom Sharara Set",
+    brand: "Jayanti Reddy",
+    price: 9999,
+    originalPrice: 11499,
+    discountPercent: 13,
+    rating: 4.9,
+    reviews: 42,
+    image: "placeholder4",
+  },
+  {
+    id: "default_best_1",
+    categoryId: "default",
+    subcategoryId: "best",
+    title: "Banarasi Silk Saree",
+    brand: "Banaras Loom",
+    price: 7999,
+    originalPrice: 9199,
+    discountPercent: 13,
+    rating: 4.7,
+    reviews: 189,
+    image: "placeholder3",
+  },
+  {
+    id: "default_sale_1",
+    categoryId: "default",
+    subcategoryId: "sale",
+    title: "Handcrafted Sherwani",
+    brand: "Manyavar",
+    price: 11299,
+    originalPrice: 13999,
+    discountPercent: 19,
+    rating: 4.6,
+    reviews: 98,
+    image: "placeholder2",
+  },
+  {
+    id: "default_budget_1",
+    categoryId: "default",
+    subcategoryId: "budget",
+    title: "Printed Summer Kurti",
+    brand: "Biba",
+    price: 2199,
+    originalPrice: 2699,
+    discountPercent: 19,
+    rating: 4.2,
+    reviews: 146,
+    image: "placeholder1",
+  },
+];
+

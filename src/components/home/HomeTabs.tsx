@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useTheme } from '../../context';
-import { spacing } from '../../theme/spacing';
-import { typography } from '../../theme/typography';
-import { scale } from '../../theme/metrics';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useTheme } from "../../context";
+import { spacing } from "../../theme/spacing";
+import { scale, widthPercent } from "../../theme/metrics";
+import { typeScale } from "../../theme/scales";
+import { colors } from "../../theme/colors";
 
 type HomeTabsProps<T extends readonly string[]> = {
   tabs: T;
@@ -21,12 +22,12 @@ export default function HomeTabs<T extends readonly string[]>({
 
   return (
     <View style={[styles.container, { borderColor: theme.border }]}>
-      {tabs.map(tab => {
+      {tabs.map((tab) => {
         const isActive = tab === activeTab;
         const indicatorWidth = tabWidths[tab] ? tabWidths[tab] + scale(24) : 0;
 
         const handleLayout = (width: number) => {
-          setTabWidths(prev => {
+          setTabWidths((prev) => {
             if (prev[tab] === width) {
               return prev;
             }
@@ -60,7 +61,7 @@ export default function HomeTabs<T extends readonly string[]>({
                 style={[
                   styles.indicator,
                   {
-                    backgroundColor: isActive ? theme.primary : 'transparent',
+                    backgroundColor: isActive ? theme.primary : "transparent",
                     width: indicatorWidth,
                     opacity: indicatorWidth ? 1 : 0,
                   },
@@ -76,25 +77,27 @@ export default function HomeTabs<T extends readonly string[]>({
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: spacing.md,
     borderBottomWidth: 1,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   tab: {
     // paddingVertical: spacing.sm,
     // paddingHorizontal: scale(12),
   },
   labelWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   label: {
-    ...typography.body,
+    fontFamily: typeScale.fontFamily.medium,
+    fontSize: typeScale.fontSize.md,
+    color: colors.textSecondary,
   },
   indicator: {
     height: scale(2),
-    marginTop: scale(4),
+    marginTop: widthPercent(0.014),
     borderRadius: scale(1),
   },
 });

@@ -1,0 +1,15 @@
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/CMakeFiles/appmodules.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/CMakeFiles/edit_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/CMakeFiles/rebuild_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rnasyncstorage_autolinked_build/CMakeFiles/react_codegen_rnasyncstorage.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rnasyncstorage_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rnasyncstorage_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rngesturehandler_codegen_autolinked_build/CMakeFiles/react_codegen_rngesturehandler_codegen.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rngesturehandler_codegen_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rngesturehandler_codegen_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/safeareacontext_autolinked_build/CMakeFiles/react_codegen_safeareacontext.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/safeareacontext_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/safeareacontext_autolinked_build/CMakeFiles/rebuild_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rnscreens_autolinked_build/CMakeFiles/react_codegen_rnscreens.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rnscreens_autolinked_build/CMakeFiles/edit_cache.dir
+/Users/rockpvvishwakarma/Documents/+++/MobileApp-E-commerce/android/app/.cxx/RelWithDebInfo/573ax2vi/x86_64/rnscreens_autolinked_build/CMakeFiles/rebuild_cache.dir

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
-  Alert,
   Image,
   ImageBackground,
   ScrollView,
@@ -12,7 +11,7 @@ import {
 import { useFormik } from "formik";
 import AuthHeader from "../../components/auth/AuthHeader";
 import { Button, TextInput } from "../../components/common";
-import { useTheme } from "../../context";
+import { useTheme, useToast } from "../../context";
 import STRINGS from "../../constants/strings";
 import { loginScreenStyles } from "../../styles/auth/loginStyles";
 import Images, { Icons } from "../../constants/images";
@@ -23,6 +22,8 @@ import { loginValidationSchema } from "../../validation/authSchema";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import type { RootState } from "../../redux/store";
 import { loginThunk } from "../../redux/thunks/authThunks";
+import { typeScale } from "../../theme";
+import { spacing } from "../../theme/spacing";
 
 type LoginFormValues = {
   email: string;
@@ -32,6 +33,7 @@ type LoginFormValues = {
 export default function LoginScreen() {
   const { theme } = useTheme();
   const navigation = useNavigation<AuthStackNavigationProp>();
+  const { showSuccess, showError } = useToast();
 
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -47,13 +49,13 @@ export default function LoginScreen() {
     onSubmit: async (values, helpers) => {
       try {
         await dispatch(loginThunk(values)).unwrap();
-        Alert.alert("Success", STRINGS.auth.login.success);
+        showSuccess(STRINGS.auth.login.success, "Login Successful");
       } catch (error) {
         const message =
           error instanceof Error
             ? error.message
             : auth.error ?? STRINGS.auth.login.error;
-        Alert.alert("Login failed", message);
+        showError(message, "Login Failed");
       } finally {
         helpers.setSubmitting(false);
       }
@@ -148,14 +150,14 @@ export default function LoginScreen() {
                   <View
                     style={[
                       loginScreenStyles.checkbox,
-                      { borderColor: theme.primary },
+                      { borderColor: theme.border },
                     ]}
                   >
                     {rememberMe ? (
                       <View
                         style={[
                           loginScreenStyles.checkboxChecked,
-                          { backgroundColor: theme.primary },
+                          { backgroundColor: theme.muted },
                         ]}
                       />
                     ) : null}
@@ -163,7 +165,7 @@ export default function LoginScreen() {
                   <Text
                     style={[
                       loginScreenStyles.rememberText,
-                      { color: theme.text },
+                      { color: theme.muted },
                     ]}
                   >
                     {STRINGS.auth.login.rememberMe}
@@ -174,7 +176,7 @@ export default function LoginScreen() {
                   <Text
                     style={[
                       loginScreenStyles.actionLink,
-                      { color: theme.text },
+                      { color: theme.muted },
                     ]}
                   >
                     {STRINGS.auth.login.forgotPassword}
@@ -187,6 +189,7 @@ export default function LoginScreen() {
                 onPress={() => formik.handleSubmit()}
                 loading={formik.isSubmitting || auth.status === "loading"}
                 fullWidth
+                style={{ marginTop: spacing.md }}
               />
 
               <View style={loginScreenStyles.divider}>
@@ -213,7 +216,7 @@ export default function LoginScreen() {
               </View>
 
               <Text
-                style={[loginScreenStyles.continueText, { color: theme.text }]}
+                style={[loginScreenStyles.continueText, { color: theme.muted }]}
               >
                 {STRINGS.auth.login.continueWith}
               </Text>
@@ -246,7 +249,10 @@ export default function LoginScreen() {
                   <Text
                     style={[
                       loginScreenStyles.actionLink,
-                      { color: theme.text },
+                      {
+                        color: theme.primary,
+                        fontFamily: typeScale.fontFamily.bold,
+                      },
                     ]}
                   >
                     {STRINGS.auth.login.signUpLink}

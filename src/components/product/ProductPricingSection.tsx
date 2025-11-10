@@ -26,7 +26,9 @@ export default function ProductPricingSection({
               <Text style={[styles.price, { color: theme.text }]}>
                 ₹{product.rentalPricePerDay.toLocaleString("en-IN")}
               </Text>
-              <Text style={[styles.priceSuffix, { color: theme.secondaryText }]}>
+              <Text
+                style={[styles.priceSuffix, { color: theme.secondaryText }]}
+              >
                 /day
               </Text>
             </View>
@@ -47,7 +49,9 @@ export default function ProductPricingSection({
               ) : null}
             </View>
             {product.originalPrice ? (
-              <Text style={[styles.priceHelper, { color: theme.secondaryText }]}>
+              <Text
+                style={[styles.priceHelper, { color: theme.secondaryText }]}
+              >
                 MRP {product.originalPrice}
               </Text>
             ) : null}
@@ -63,4 +67,3 @@ export default function ProductPricingSection({
     </>
   );
 }
-
