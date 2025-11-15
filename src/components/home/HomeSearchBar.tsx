@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, StyleSheet, TextInput, View } from "react-native";
-import Images from "../../constants/images";
+import Images, { Icons } from "../../constants/images";
 import { useTheme } from "../../context";
 import { scale, widthPercent } from "../../theme/metrics";
 import { spacing } from "../../theme/spacing";
@@ -33,7 +33,7 @@ export default function HomeSearchBar({
       ]}
     >
       <Image
-        source={Images.search}
+        source={Icons.search}
         style={[styles.icon, { tintColor: theme.muted }]}
       />
       <TextInput

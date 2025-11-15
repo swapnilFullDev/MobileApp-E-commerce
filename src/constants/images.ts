@@ -10,10 +10,6 @@ const Images: Record<string, ImageSourcePropType> = {
   placeholder2: require("../assets/images/dummyImages/placeholder2.png"),
   placeholder3: require("../assets/images/dummyImages/placeholder3.png"),
   placeholder4: require("../assets/images/dummyImages/placeholder4.png"),
-  search: require("../assets/images/search.png"),
-  shopping: require("../assets/images/shopping.png"),
-  square: require("../assets/images/square.png"),
-  user: require("../assets/images/user.png"),
 };
 
 const Icons: Record<string, ImageSourcePropType> = {
@@ -23,11 +19,20 @@ const Icons: Record<string, ImageSourcePropType> = {
   leftArrow: require("../assets/icons/left-arrow.png"),
   love: require("../assets/icons/love.png"),
   loveFilled: require("../assets/icons/loveFilled.png"),
+
+  search: require("../assets/icons/search.png"),
+  shopping: require("../assets/icons/shopping.png"),
+  square: require("../assets/icons/square.png"),
+  user: require("../assets/icons/user.png"),
+
+  minus: require("../assets/icons/minus.png"),
+  plus: require("../assets/icons/plus.png"),
 };
 
 const Tabs: Record<string, ImageSourcePropType> = {
   tabHome: require("../assets/tabs/home.png"),
   tabCategory: require("../assets/tabs/category.png"),
+  tabFavorites: require("../assets/tabs/favorites.png"),
   tabCart: require("../assets/tabs/cart.png"),
   tabProfile: require("../assets/tabs/profile.png"),
 };

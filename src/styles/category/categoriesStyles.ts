@@ -7,6 +7,83 @@ export const categoriesStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  heroHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  heroLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    flex: 1,
+  },
+  heroLogo: {
+    width: spacing.xxl,
+    height: spacing.xxl,
+    borderRadius: radii.round,
+    backgroundColor: "#FDECF4",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: spacing.xs,
+  },
+  heroLogoImage: {
+    width: "90%",
+    height: "90%",
+  },
+  heroTextWrap: {
+    flex: 1,
+  },
+  heroTitle: {
+    fontFamily: fonts.semiBold,
+    fontSize: typeScale.fontSize.lg,
+  },
+  heroSubtitle: {
+    fontFamily: fonts.regular,
+    fontSize: typeScale.fontSize.xs,
+  },
+  heroActions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xs,
+  },
+  heroIconButton: {
+    width: spacing.xl * 1.2,
+    height: spacing.xl * 1.2,
+    borderRadius: radii.round,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+  },
+  heroIcon: {
+    width: spacing.md + 4,
+    height: spacing.md + 4,
+    resizeMode: "contain",
+  },
+  heroIconPlus: {
+    fontFamily: fonts.bold,
+    fontSize: typeScale.fontSize.lg,
+  },
+  heroBadge: {
+    position: "absolute",
+    top: -4,
+    right: -4,
+    minWidth: spacing.md,
+    minHeight: spacing.md,
+    borderRadius: radii.round,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: spacing.xs / 2,
+  },
+  heroBadgeText: {
+    color: "#fff",
+    fontFamily: fonts.semiBold,
+    fontSize: typeScale.fontSize.xs,
+  },
   content: {
     paddingBottom: spacing.xxxl,
     paddingHorizontal: spacing.md,
@@ -153,7 +230,7 @@ export const categoriesStyles = StyleSheet.create({
   },
   productCardWrapper: {
     width: "48%",
-    marginBottom: spacing.lg,
+    marginBottom: spacing.xs,
   },
   footerSpacing: {
     height: spacing.xxl,

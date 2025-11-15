@@ -13,6 +13,7 @@ import { radius } from "../theme/radius";
 import Images, { Tabs } from "../constants/images";
 import { radii, typeScale } from "../theme";
 import { widthPercent } from "../theme/metrics";
+import FavoritesScreen from "../screens/FavoritesScreen";
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -35,7 +36,8 @@ function TabIcon({
     Record<keyof MainTabParamList, keyof typeof Tabs>
   > = {
     Home: "tabHome",
-    Categories: "tabCategory",
+    // Categories: "tabCategory",
+    Favorites: "tabFavorites",
     Cart: "tabCart",
     Profile: "tabProfile",
   };
@@ -107,10 +109,15 @@ export default function MainTabs() {
         component={HomeScreen}
         options={{ title: "Home" }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Categories"
         component={CategoriesScreen}
         options={{ title: "Categories" }}
+      /> */}
+      <Tab.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{ title: "Favorites" }}
       />
       <Tab.Screen
         name="Cart"

@@ -1,12 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useAuth } from '../context';
-import MainTabs from './MainTabs';
-import LoginScreen from '../screens/auth/LoginScreen';
-import SignUpScreen from '../screens/auth/SignUpScreen';
-import ProductDetailScreen from '../screens/ProductDetailScreen';
-import { ROUTES } from '../constants';
-import { AuthStackParamList } from './types';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useAuth } from "../context";
+import MainTabs from "./MainTabs";
+import LoginScreen from "../screens/auth/LoginScreen";
+import SignUpScreen from "../screens/auth/SignUpScreen";
+import ProductDetailScreen from "../screens/ProductDetailScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
+import CategoriesScreen from "../screens/CategoriesScreen";
+import { ROUTES } from "../constants";
+import { AuthStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<AuthStackParamList>();
 
@@ -27,6 +29,11 @@ export default function AppNavigator() {
               name={ROUTES.PRODUCT_DETAIL}
               component={ProductDetailScreen}
             />
+            <Stack.Screen name={ROUTES.FAVORITES} component={FavoritesScreen} />
+            <Stack.Screen
+              name={ROUTES.CATEGORIES}
+              component={CategoriesScreen}
+            />
           </>
         ) : (
           <>
@@ -38,5 +45,3 @@ export default function AppNavigator() {
     </NavigationContainer>
   );
 }
-
-

@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { useTheme, useToast } from "../context";
+import { ROUTES } from "../constants";
 import { categoriesStyles as styles } from "../styles/category/categoriesStyles";
 import { CATEGORIES } from "../data/home";
 import {
@@ -23,11 +24,12 @@ import {
 import CategoryProductCard from "../components/category/CategoryProductCard";
 import Images, { Icons } from "../constants/images";
 import {
+  AuthStackParamList,
   CategoriesScreenNavigationProp,
-  MainTabParamList,
 } from "../navigation/types";
+import { renderIconButton } from "../components/common/renderIconButton";
 
-type CategoriesScreenRouteProp = RouteProp<MainTabParamList, "Categories">;
+type CategoriesScreenRouteProp = RouteProp<AuthStackParamList, "Categories">;
 type SortKey = "priceLowHigh" | "priceHighLow" | "topRated";
 
 const SORT_LABELS: Record<SortKey, string> = {
@@ -128,6 +130,13 @@ export default function CategoriesScreen() {
     return `${resultCount} styles handpicked for ${label.toLowerCase()}.`;
   }, [filteredProducts.length, searchQuery, selectedCategory?.label]);
 
+  const formattedItemCount = useMemo(
+    () => `${filteredProducts.length.toLocaleString("en-IN")} items`,
+    [filteredProducts.length]
+  );
+
+  const headerTitle = selectedCategory?.label ?? "All categories";
+
   const handleSortCycle = () => {
     setSortOption((prev) => {
       const currentIndex = SORT_SEQUENCE.indexOf(prev);
@@ -158,6 +167,22 @@ export default function CategoriesScreen() {
       "Search Preview",
       2000
     );
+  };
+
+  const handleAddPress = () => {
+    showInfo(
+      "Quick add shortcuts will be available soon.",
+      "Coming Soon",
+      2000
+    );
+  };
+
+  const handleWishlistPress = () => {
+    navigation.navigate(ROUTES.FAVORITES);
+  };
+
+  const handleCartPress = () => {
+    showInfo("Cart actions will land shortly.", "Cart Preview", 2000);
   };
 
   const handleBackPress = () => {
@@ -200,39 +225,62 @@ export default function CategoriesScreen() {
   const renderHeader = useCallback(
     () => (
       <View>
-        <View style={styles.header}>
-          <View style={styles.headerBar}>
+        <View
+          style={[
+            styles.heroHeader,
+            {
+              backgroundColor: theme.surface,
+              borderBottomColor: theme.border,
+            },
+          ]}
+        >
+          <View style={styles.heroLeft}>
             <Pressable
               style={[
-                styles.headerAction,
-                { backgroundColor: `${theme.surface}CC` },
+                styles.heroIconButton,
+                {
+                  backgroundColor: `${theme.surface}CC`,
+                  borderColor: theme.border,
+                },
               ]}
               onPress={handleBackPress}
             >
               <Image
                 source={Icons.leftArrow}
-                style={{ width: 22, height: 22, tintColor: theme.text }}
-                resizeMode="contain"
+                style={[styles.heroIcon, { tintColor: theme.text }]}
               />
             </Pressable>
-            <Text style={[styles.headerTitleText, { color: theme.text }]}>
-              {selectedCategory?.label ?? "All categories"}
-            </Text>
-            <Pressable
-              style={[
-                styles.headerAction,
-                { backgroundColor: `${theme.surface}CC` },
-              ]}
-              onPress={handleSearchPress}
-            >
+            <View style={styles.heroLogo}>
               <Image
-                source={Images.search}
-                style={{ width: 20, height: 20, tintColor: theme.text }}
+                source={Images.brandName}
+                style={styles.heroLogoImage}
                 resizeMode="contain"
               />
-            </Pressable>
+            </View>
+            <View style={styles.heroTextWrap}>
+              <Text style={[styles.heroTitle, { color: theme.text }]}>
+                {headerTitle}
+              </Text>
+              <Text
+                style={[styles.heroSubtitle, { color: theme.secondaryText }]}
+              >
+                {formattedItemCount}
+              </Text>
+            </View>
           </View>
+          <View style={styles.heroActions}>
+            {renderIconButton({
+              icon: "search",
+              onPress: handleSearchPress,
+            })}
+            {renderIconButton({
+              icon: "love",
+              onPress: handleWishlistPress,
+            })}
+          </View>
+        </View>
 
+        <View style={styles.header}>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -267,71 +315,22 @@ export default function CategoriesScreen() {
               );
             })}
           </ScrollView>
-
-          <Text style={[styles.helperText, { color: theme.secondaryText }]}>
-            {helperMessage}
-          </Text>
-        </View>
-
-        <View
-          style={[
-            styles.filterRow,
-            {
-              borderColor: theme.border,
-              backgroundColor: theme.surface,
-            },
-          ]}
-        >
-          <Pressable
-            onPress={handleFilterPress}
-            style={[
-              styles.filterButton,
-              {
-                borderColor: theme.border,
-                backgroundColor: theme.surface,
-              },
-            ]}
-          >
-            <Text style={[styles.filterIcon, { color: theme.text }]}>☰</Text>
-            <Text style={[styles.filterButtonLabel, { color: theme.text }]}>
-              Filters
-            </Text>
-          </Pressable>
-
-          <Pressable onPress={handleSortCycle} style={styles.sortButton}>
-            <Text style={[styles.sortLabel, { color: theme.text }]}>⇅</Text>
-            <Text style={[styles.sortLabel, { color: theme.text }]}>
-              {SORT_LABELS[sortOption]}
-            </Text>
-          </Pressable>
-
-          <Pressable
-            onPress={handleViewToggle}
-            style={[
-              styles.viewToggleButton,
-              { borderColor: theme.border, backgroundColor: theme.surface },
-            ]}
-          >
-            <Image
-              source={Images.square}
-              style={[styles.viewToggleIcon, { tintColor: theme.text }]}
-            />
-            <Text style={[styles.filterButtonLabel, { color: theme.text }]}>
-              Grid
-            </Text>
-          </Pressable>
         </View>
       </View>
     ),
     [
+      formattedItemCount,
+      headerTitle,
       activeSubcategory,
       handleBackPress,
+      handleAddPress,
+      handleWishlistPress,
+      handleCartPress,
       handleFilterPress,
       handleSearchPress,
       handleSortCycle,
       handleViewToggle,
       helperMessage,
-      selectedCategory?.label,
       subcategories,
       theme.border,
       theme.primary,
@@ -346,7 +345,7 @@ export default function CategoriesScreen() {
       <StatusBar
         barStyle={theme.name === "light" ? "dark-content" : "light-content"}
       />
-
+      {renderHeader()}
       <FlatList
         data={filteredProducts}
         keyExtractor={(item) => item.id}
@@ -357,7 +356,7 @@ export default function CategoriesScreen() {
           !filteredProducts.length && styles.emptyContent,
         ]}
         columnWrapperStyle={styles.productsRow}
-        ListHeaderComponent={renderHeader}
+        // ListHeaderComponent={renderHeader}
         ListEmptyComponent={renderEmpty}
         ListFooterComponent={<View style={styles.footerSpacing} />}
         showsVerticalScrollIndicator={false}

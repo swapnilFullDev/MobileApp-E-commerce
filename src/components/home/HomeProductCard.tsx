@@ -83,7 +83,6 @@ export default function HomeProductCard({
         },
       ]}
       onPress={() => onPress?.(product)}
-      activeOpacity={0.9}
     >
       <View style={styles.imageWrapper}>
         <Image source={Images[product.image]} style={styles.image} />

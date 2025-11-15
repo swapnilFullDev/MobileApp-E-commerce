@@ -4,6 +4,7 @@ export const ROUTES = {
   SIGN_UP: 'SignUpScreen',
   MAIN_TABS: 'MainTabs',
   PRODUCT_DETAIL: 'ProductDetail',
+  FAVORITES: 'Favorites',
   CATEGORIES: 'Categories',
 } as const;
 

@@ -58,6 +58,7 @@ export const typeScale = {
     xl: px(0.05),
     xxl: px(0.06),
     xxxl: px(0.1),
+    loader: px(0.05),
   },
   lineHeight: {
     xs: px(0.032),

@@ -18,11 +18,13 @@ import { widthPercent } from "../../theme/metrics";
 type CategoryProductCardProps = {
   product: CategoryListingProduct;
   onPress?: (product: CategoryListingProduct) => void;
+  favorite?: boolean;
 };
 
 export default function CategoryProductCard({
   product,
   onPress,
+  favorite = false,
 }: CategoryProductCardProps) {
   const { theme } = useTheme();
   const [isFavorite, setIsFavorite] = useState(false);
@@ -80,7 +82,8 @@ export default function CategoryProductCard({
         {
           backgroundColor: theme.surface,
           borderColor: `${theme.border}`,
-          shadowColor: theme.name === "light" ? "rgba(15,23,42,0.08)" : "rgba(0,0,0,0.4)",
+          shadowColor:
+            theme.name === "light" ? "rgba(15,23,42,0.08)" : "rgba(0,0,0,0.4)",
         },
       ]}
       onPress={() => onPress?.(product)}
@@ -88,7 +91,9 @@ export default function CategoryProductCard({
       <View style={styles.imageWrapper}>
         <Image source={Images[product.image]} style={styles.image} />
         {discountLabel ? (
-          <View style={[styles.badge, { backgroundColor: `${theme.primary}1A` }]}>
+          <View
+            style={[styles.badge, { backgroundColor: `${theme.primary}1A` }]}
+          >
             <Text style={[styles.badgeLabel, { color: theme.primary }]}>
               {discountLabel}
             </Text>
@@ -110,10 +115,10 @@ export default function CategoryProductCard({
           ]}
         >
           <Animated.Image
-            source={isFavorite ? Icons.loveFilled : Icons.love}
+            source={isFavorite || favorite ? Icons.loveFilled : Icons.love}
             style={[
               styles.favoriteIcon,
-              { tintColor: isFavorite ? "#FF4D67" : theme.muted },
+              { tintColor: isFavorite || favorite ? "#FF4D67" : theme.muted },
               { transform: [{ scale: favoriteScale }] },
             ]}
           />
@@ -136,7 +141,7 @@ export default function CategoryProductCard({
         <Text style={[styles.brand, { color: theme.secondaryText }]}>
           {product.brand}
         </Text>
-        <Text style={[styles.title, { color: theme.text }]} numberOfLines={2}>
+        <Text style={[styles.title, { color: theme.text }]} numberOfLines={1}>
           {product.title}
         </Text>
 
@@ -146,7 +151,9 @@ export default function CategoryProductCard({
               {originalPriceLabel}
             </Text>
           ) : null}
-          <Text style={[styles.price, { color: theme.text }]}>{priceLabel}</Text>
+          <Text style={[styles.price, { color: theme.text }]}>
+            {priceLabel}
+          </Text>
         </View>
       </View>
     </AnimatedTouchableOpacity>
@@ -254,4 +261,3 @@ const styles = StyleSheet.create({
     fontSize: typeScale.fontSize.md,
   },
 });
-
