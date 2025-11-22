@@ -30,6 +30,11 @@ import ProductSummary from "../components/product/ProductSummary";
 import SimilarProductCard, {
   mapProductDetailToCardData,
 } from "../components/product/SimilarProductCard";
+import { addFavorite, SavedItem } from "../services/storage/favoritesStorage";
+import { CartItem } from "../services/storage/cartStorage";
+import { useAppDispatch } from "../redux/hooks";
+import { addItemToCart } from "../redux/thunks/cartThunks";
+import { ROUTES } from "../constants";
 
 type ProductDetailScreenRouteProp = RouteProp<
   AuthStackParamList,
@@ -41,6 +46,7 @@ export default function ProductDetailScreen() {
   const route = useRoute<ProductDetailScreenRouteProp>();
   const { theme } = useTheme();
   const { showSuccess, showInfo } = useToast();
+  const dispatch = useAppDispatch();
 
   const product = useMemo(() => {
     if (!route.params?.productId) {
@@ -120,7 +126,7 @@ export default function ProductDetailScreen() {
   const rentalTotalCost = selectedDuration * product.rentalPricePerDay;
   const isRenting = rentAvailable && fulfillmentMode === "rent";
   const primaryActionLabel = isRenting ? "Reserve Now" : "Buy Now";
-  const secondaryActionLabel = isRenting ? "Save for Later" : "Add to Wishlist";
+  const secondaryActionLabel = isRenting ? "Save for Later" : "Add to Cart Now";
   const summaryTitle = isRenting ? "Rental Summary" : "Purchase Summary";
   const summaryValueText =
     isRenting && rentAvailable
@@ -145,22 +151,85 @@ export default function ProductDetailScreen() {
     [product.id]
   );
 
-  const handlePrimaryAction = () => {
-    if (isRenting) {
-      showSuccess(
-        `We saved a ${selectedDuration}-day rental for ${product.title}.`,
-        "Rental Reserved"
-      );
-      return;
-    }
+  const handlePrimaryAction = async () => {
+    try {
+      const cartItem: CartItem = {
+        id: `cart_${product.id}_${Date.now()}`,
+        productId: product.id,
+        mode: isRenting ? "rent" : "buy",
+        selectedSize,
+        selectedColor,
+        image: product.image,
+        title: product.title,
+        brand: product.brand,
+        price: isRenting
+          ? rentalTotalCost
+          : parseFloat(product.price.replace(/[^0-9.-]+/g, "")),
+        originalPrice: product.originalPrice
+          ? parseFloat(product.originalPrice.replace(/[^0-9.-]+/g, ""))
+          : undefined,
+        discountPercent: product.discountLabel
+          ? parseInt(product.discountLabel.replace(/[^0-9]+/g, ""))
+          : undefined,
+        qty: 1,
+        rentalDuration: isRenting ? selectedDuration : undefined,
+        pricePerDay: isRenting ? product.rentalPricePerDay : undefined,
+        securityDeposit: isRenting ? product.securityDeposit : undefined,
+      };
 
-    showSuccess(`${product.title} is ready to checkout.`, "Added to Cart");
+      await dispatch(addItemToCart(cartItem)).unwrap();
+
+      const successMessage = isRenting
+        ? `${product.title} reserved for ${selectedDuration} days`
+        : `${product.title} added to cart`;
+      const successTitle = isRenting ? "Rental Reserved" : "Added to Cart";
+
+      showSuccess(successMessage, successTitle);
+
+      // Navigate to Cart tab
+      navigation.navigate(ROUTES.MAIN_TABS, {
+        screen: "Cart",
+      });
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      showInfo("Failed to add item to cart. Please try again.", "Error");
+    }
   };
 
-  const handleSecondaryAction = () => {
-    const actionMessage = isRenting ? "Saved for later" : "Added to wishlist";
+  const handleSecondaryAction = async () => {
+    try {
+      const savedItem: SavedItem = {
+        id: `fav_${product.id}_${Date.now()}`,
+        productId: product.id,
+        mode: isRenting ? "rent" : "buy",
+        selectedSize,
+        selectedColor,
+        rentalDuration: isRenting ? selectedDuration : undefined,
+        pricePerDay: isRenting ? product.rentalPricePerDay : undefined,
+        securityDeposit: isRenting ? product.securityDeposit : undefined,
+        purchasePrice: !isRenting
+          ? parseFloat(product.price.replace(/[^0-9.-]+/g, ""))
+          : undefined,
+        savedAt: Date.now(),
+      };
 
-    showInfo(`${product.title} will be waiting for you.`, actionMessage, 2600);
+      await addFavorite(savedItem);
+
+      const actionMessage = isRenting ? "Saved for later" : "Added to wishlist";
+      showInfo(
+        `${product.title} will be waiting for you.`,
+        actionMessage,
+        2600
+      );
+
+      // Navigate to Favorites tab
+      navigation.navigate(ROUTES.MAIN_TABS, {
+        screen: "Cart",
+      });
+    } catch (error) {
+      console.error("Error saving to favorites:", error);
+      showInfo("Failed to save item. Please try again.", "Error");
+    }
   };
 
   return (
