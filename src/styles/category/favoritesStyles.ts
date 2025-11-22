@@ -48,7 +48,7 @@ export const favoritesStyles = StyleSheet.create({
   },
   columnWrapper: {
     justifyContent: "space-between",
-    marginBottom: spacing.md,
+    // marginBottom: spacing.md,
   },
   cardWrapper: {
     width: "48%",
@@ -71,4 +71,3 @@ export const favoritesStyles = StyleSheet.create({
     textAlign: "center",
   },
 });
-

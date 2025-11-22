@@ -20,14 +20,26 @@ type Props = TextInputProps & {
   rightIcon?: ReactNode | boolean;
   onRightIconPress?: () => void;
   error?: string;
+  styleContainer?: any;
 };
 
 const TextInput = forwardRef<RNTextInput, Props>(
-  ({ label, style, rightIcon, onRightIconPress, error, ...rest }, ref) => {
+  (
+    {
+      label,
+      style,
+      rightIcon,
+      onRightIconPress,
+      error,
+      styleContainer,
+      ...rest
+    },
+    ref
+  ) => {
     const { theme } = useTheme();
 
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styleContainer]}>
         {label ? (
           <Text
             style={[

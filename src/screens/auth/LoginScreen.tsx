@@ -56,6 +56,7 @@ export default function LoginScreen() {
             ? error.message
             : auth.error ?? STRINGS.auth.login.error;
         showError(message, "Login Failed");
+        console.log(error);
       } finally {
         helpers.setSubmitting(false);
       }

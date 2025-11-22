@@ -158,7 +158,8 @@ export function ToastProvider({
         type: "info",
         title,
         duration,
-        animationType: "fade",
+        // animationType: "fade",
+        animationType: "slide",
       });
     },
     [showToast]

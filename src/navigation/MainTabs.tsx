@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
@@ -12,8 +12,12 @@ import { fonts } from "../theme/fonts";
 import { radius } from "../theme/radius";
 import Images, { Tabs } from "../constants/images";
 import { radii, typeScale } from "../theme";
-import { widthPercent } from "../theme/metrics";
+import { heightPercent, widthPercent } from "../theme/metrics";
 import FavoritesScreen from "../screens/FavoritesScreen";
+import { useAppSelector } from "../redux/hooks";
+import { selectCartItemCount } from "../redux/slices/cartSlice";
+import { useAppDispatch } from "../redux/hooks";
+import { loadCart } from "../redux/thunks/cartThunks";
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -73,6 +77,13 @@ function TabIcon({
 
 export default function MainTabs() {
   const { theme } = useTheme();
+  const dispatch = useAppDispatch();
+  const cartItemCount = useAppSelector(selectCartItemCount);
+
+  // Load cart on mount
+  useEffect(() => {
+    dispatch(loadCart());
+  }, [dispatch]);
 
   return (
     <Tab.Navigator
@@ -83,7 +94,7 @@ export default function MainTabs() {
         tabBarHideOnKeyboard: true,
         tabBarLabelStyle: {
           fontFamily: fonts.medium,
-          fontSize: 12,
+          fontSize: typeScale.fontSize.xs,
           marginBottom: 2,
         },
         tabBarStyle: [
@@ -98,7 +109,11 @@ export default function MainTabs() {
             routeName={route.name as keyof MainTabParamList}
             color={color}
             focused={focused}
-            badge={route.name === "Cart" ? "9" : undefined}
+            badge={
+              route.name === "Cart" && cartItemCount > 0
+                ? cartItemCount.toString()
+                : undefined
+            }
             highlightColor={`${theme.primary}1A`}
           />
         ),
@@ -138,6 +153,7 @@ const styles = StyleSheet.create({
     borderTopWidth: StyleSheet.hairlineWidth,
     paddingTop: spacing.xs,
     paddingBottom: spacing.sm,
+    height: heightPercent(0.07),
   },
   iconWrapper: {
     padding: spacing.xs * 0.5,

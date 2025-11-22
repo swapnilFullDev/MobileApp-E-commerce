@@ -41,7 +41,11 @@ export const renderIconButton = ({
   >
     <Image
       source={Icons[icon]}
-      style={[styles.icon, iconStyle, tintColor ? { tintColor } : undefined]}
+      style={[
+        icon == "leftArrow" ? styles.leftArrowIcon : styles.icon,
+        iconStyle,
+        tintColor ? { tintColor } : undefined,
+      ]}
     />
   </TouchableOpacity>
 );
@@ -57,6 +61,11 @@ const styles = StyleSheet.create({
   icon: {
     width: widthPercent(0.06),
     height: widthPercent(0.06),
+    resizeMode: "contain",
+  },
+  leftArrowIcon: {
+    width: widthPercent(0.045),
+    height: widthPercent(0.045),
     resizeMode: "contain",
   },
 });

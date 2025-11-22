@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
   },
   title: {
-    fontFamily: typeScale.fontFamily.semibold,
+    fontFamily: typeScale.fontFamily.semiBold,
     fontSize: typeScale.fontSize.md,
     color: "#FFFFFF",
     marginBottom: 4,

@@ -15,6 +15,7 @@ export type Theme = {
   primary: string;
   border: string;
   secondaryText: string;
+  white: string;
 };
 
 const lightTheme: Theme = {
@@ -26,6 +27,7 @@ const lightTheme: Theme = {
   primary: "#2F4157",
   border: "#E5E7EB",
   secondaryText: "#4B5563",
+  white: "#FFFFFF",
 };
 
 const darkTheme: Theme = {
@@ -37,6 +39,7 @@ const darkTheme: Theme = {
   primary: "#10B981",
   border: "#334155",
   secondaryText: "#94A3B8",
+  white: "#2F4157",
 };
 
 type ThemeContextValue = {

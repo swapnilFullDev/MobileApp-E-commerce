@@ -327,4 +327,8 @@ export const cartStyles = StyleSheet.create({
     fontSize: typeScale.fontSize.md,
     color: "#FFFFFF",
   },
+  trashIcon: {
+    width: widthPercent(0.05),
+    height: widthPercent(0.05),
+  },
 });

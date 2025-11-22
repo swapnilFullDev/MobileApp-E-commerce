@@ -21,7 +21,12 @@ export default function HomeTabs<T extends readonly string[]>({
   const [tabWidths, setTabWidths] = useState<Record<string, number>>({});
 
   return (
-    <View style={[styles.container, { borderColor: theme.border }]}>
+    <View
+      style={[
+        styles.container,
+        { borderColor: theme.border, backgroundColor: theme.surface },
+      ]}
+    >
       {tabs.map((tab) => {
         const isActive = tab === activeTab;
         const indicatorWidth = tabWidths[tab] ? tabWidths[tab] + scale(24) : 0;
@@ -78,9 +83,10 @@ export default function HomeTabs<T extends readonly string[]>({
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginHorizontal: spacing.md,
+    paddingHorizontal: spacing.md,
     borderBottomWidth: 1,
     justifyContent: "space-between",
+    backgroundColor: colors.white,
   },
   tab: {
     // paddingVertical: spacing.sm,

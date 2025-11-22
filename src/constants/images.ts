@@ -27,6 +27,19 @@ const Icons: Record<string, ImageSourcePropType> = {
 
   minus: require("../assets/icons/minus.png"),
   plus: require("../assets/icons/plus.png"),
+
+  editProfile: require("../assets/icons/editProfile.png"),
+  notifications: require("../assets/icons/notifications.png"),
+  language: require("../assets/icons/language.png"),
+  payment: require("../assets/icons/payment.png"),
+  contactUs: require("../assets/icons/contactUs.png"),
+  helpCenter: require("../assets/icons/helpCenter.png"),
+  myOrders: require("../assets/icons/myOrders.png"),
+  darklightMode: require("../assets/icons/darklightMode.png"),
+  address: require("../assets/icons/address.png"),
+  aboutUs: require("../assets/icons/aboutUs.png"),
+  locatorMarker: require("../assets/icons/locatorMarker.png"),
+  trash: require("../assets/icons/trash.png"),
 };
 
 const Tabs: Record<string, ImageSourcePropType> = {

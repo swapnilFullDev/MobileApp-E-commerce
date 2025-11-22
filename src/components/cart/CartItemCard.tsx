@@ -1,12 +1,31 @@
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { CartItem } from "../../data/cart";
+import { Image, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { cartStyles as styles } from "../../styles/cart/cartStyles";
 import Images, { Icons } from "../../constants/images";
 import { useTheme } from "../../context";
+import { spacing } from "../../theme/spacing";
+import { fonts } from "../../theme/fonts";
+import { radii, typeScale } from "../../theme/scales";
+import { widthPercent } from "../../theme/metrics";
+
+type DisplayCartItem = {
+  id: string;
+  brand: string;
+  title: string;
+  size: string;
+  qty: number;
+  price: number;
+  originalPrice: number;
+  discountPercent: number;
+  image: keyof typeof Images;
+  mode: "rent" | "buy";
+  rentalDuration?: number;
+  pricePerDay?: number;
+  securityDeposit?: number;
+};
 
 type CartItemCardProps = {
-  item: CartItem;
+  item: DisplayCartItem;
   onIncrement: (id: string) => void;
   onDecrement: (id: string) => void;
   onRemove: (id: string) => void;
@@ -32,9 +51,62 @@ export default function CartItemCard({
       <View style={styles.itemBody}>
         <Image source={Images[item.image]} style={styles.itemImage} />
         <View style={styles.itemContent}>
-          <Text style={[styles.title, { color: theme.text }]} numberOfLines={2}>
-            {item.title}
-          </Text>
+          <View style={localStyles.headerRow}>
+            <Text
+              style={[
+                styles.title,
+                {
+                  color: theme.text,
+                  width: widthPercent(0.42),
+                },
+              ]}
+              numberOfLines={2}
+            >
+              {item.title}
+            </Text>
+            <View
+              style={[
+                localStyles.modeBadge,
+                {
+                  backgroundColor:
+                    item.mode === "rent"
+                      ? `${theme.primary}15`
+                      : `${theme.primary}20`,
+                  borderColor:
+                    item.mode === "rent" ? theme.primary : `${theme.primary}80`,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  localStyles.modeBadgeText,
+                  {
+                    color: item.mode === "rent" ? theme.primary : theme.primary,
+                  },
+                ]}
+              >
+                {item.mode === "rent" ? "RENT" : "BUY"}
+              </Text>
+            </View>
+            <TouchableOpacity onPress={() => onRemove(item.id)}>
+              <Image source={Icons.trash} style={styles.trashIcon} />
+            </TouchableOpacity>
+          </View>
+
+          {item.mode === "rent" && item.rentalDuration && (
+            <View style={localStyles.rentalInfo}>
+              <Text
+                style={[localStyles.rentalText, { color: theme.secondaryText }]}
+              >
+                {item.rentalDuration}-day rental
+                {item.securityDeposit
+                  ? ` · Deposit: ₹${item.securityDeposit.toLocaleString(
+                      "en-IN"
+                    )}`
+                  : ""}
+              </Text>
+            </View>
+          )}
 
           <View style={[styles.metaRow, { justifyContent: "space-between" }]}>
             <View style={styles.metaPill}>
@@ -78,7 +150,13 @@ export default function CartItemCard({
           </View>
           <View style={styles.metaRow}>
             <Text style={[styles.returnText, { color: theme.secondaryText }]}>
-              {item.discountPercent}% savings applied
+              {item.mode === "rent"
+                ? item.pricePerDay
+                  ? `₹${item.pricePerDay.toLocaleString("en-IN")}/day`
+                  : "Rental item"
+                : item.discountPercent > 0
+                ? `${item.discountPercent}% savings applied`
+                : "Purchase item"}
             </Text>
           </View>
         </View>
@@ -86,3 +164,32 @@ export default function CartItemCard({
     </View>
   );
 }
+
+const localStyles = StyleSheet.create({
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+    gap: spacing.sm,
+    marginBottom: spacing.xs / 2,
+  },
+  modeBadge: {
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs / 2,
+    borderRadius: radii.sm,
+    borderWidth: 1,
+    alignSelf: "flex-start",
+  },
+  modeBadgeText: {
+    fontFamily: fonts.bold,
+    fontSize: typeScale.fontSize.xs,
+    letterSpacing: 0.5,
+  },
+  rentalInfo: {
+    marginBottom: spacing.xs / 2,
+  },
+  rentalText: {
+    fontFamily: fonts.medium,
+    fontSize: typeScale.fontSize.xs,
+  },
+});

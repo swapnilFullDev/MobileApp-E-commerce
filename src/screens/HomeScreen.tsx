@@ -30,6 +30,7 @@ import { ROUTES } from "../constants";
 import { useAuth, useTheme } from "../context";
 import { HomeScreenNavigationProp } from "../navigation";
 import { spacing } from "../theme/spacing";
+import { colors } from "../theme/colors";
 
 export default function HomeScreen() {
   const { theme } = useTheme();
@@ -63,19 +64,20 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.content}
       >
-        <HomeTopBar
-          onProfilePress={signOut}
-          onSearchPress={() => setShowSearch((prev) => !prev)}
-        />
-        {showSearch ? (
-          <HomeSearchBar value={searchQuery} onChangeText={setSearchQuery} />
-        ) : null}
-        <HomeTabs
-          tabs={HOME_TABS}
-          activeTab={activeTab}
-          onTabPress={setActiveTab}
-        />
-
+        <View style={{ gap: spacing.md, backgroundColor: theme.surface }}>
+          <HomeTopBar
+            onProfilePress={() => {}}
+            onSearchPress={() => setShowSearch((prev) => !prev)}
+          />
+          {showSearch ? (
+            <HomeSearchBar value={searchQuery} onChangeText={setSearchQuery} />
+          ) : null}
+          <HomeTabs
+            tabs={HOME_TABS}
+            activeTab={activeTab}
+            onTabPress={setActiveTab}
+          />
+        </View>
         <HomePromotionsCarousel />
 
         <HomeSectionHeader title="New Arrivals" actionLabel="Explore Now" />

@@ -1,8 +1,8 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, Platform, StyleSheet } from "react-native";
 import { fonts } from "../../theme/fonts";
 import { layoutSpacing, radii, typeScale } from "../../theme/scales";
 import { spacing } from "../../theme/spacing";
-import { scale, widthPercent } from "../../theme/metrics";
+import { heightPercent, scale, widthPercent } from "../../theme/metrics";
 
 export const productDetailStyles = StyleSheet.create({
   container: {
@@ -348,7 +348,7 @@ export const productDetailStyles = StyleSheet.create({
   },
   viewerCloseButton: {
     position: "absolute",
-    top: spacing.xl,
+    top: Platform.OS === "ios" ? heightPercent(0.09) : spacing.xl,
     right: spacing.xl,
     padding: spacing.sm,
   },

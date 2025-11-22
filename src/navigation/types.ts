@@ -19,6 +19,8 @@ export type AuthStackParamList = {
   ProductDetail: { productId: string };
   Favorites?: undefined;
   Categories: { categoryId?: string } | undefined;
+  Checkout: undefined;
+  MyOrders: undefined;
 };
 
 export type AuthStackNavigationProp =

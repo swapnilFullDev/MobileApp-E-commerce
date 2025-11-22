@@ -5,7 +5,7 @@ import { useTheme } from "../context";
 import CategoryProductCard from "../components/category/CategoryProductCard";
 import { FAVORITE_PRODUCTS } from "../data/favorites";
 import { favoritesStyles as styles } from "../styles/category/favoritesStyles";
-import { renderIconButton } from "../components/common/renderIconButton";
+import { ScreenHeader } from "../components/common";
 import { AuthStackNavigationProp } from "../navigation";
 
 export default function FavoritesScreen() {
@@ -17,12 +17,6 @@ export default function FavoritesScreen() {
     () => `${itemCount} saved ${itemCount === 1 ? "style" : "styles"}`,
     [itemCount]
   );
-
-  const handleBack = () => {
-    if (navigation.canGoBack()) {
-      navigation.goBack();
-    }
-  };
 
   const renderProduct = ({
     item,
@@ -50,38 +44,11 @@ export default function FavoritesScreen() {
       <StatusBar
         barStyle={theme.name === "light" ? "dark-content" : "light-content"}
       />
-      <View
-        style={[
-          styles.header,
-          { borderBottomColor: theme.border, backgroundColor: theme.surface },
-        ]}
-      >
-        <View style={styles.headerLeft}>
-          {renderIconButton({
-            icon: "leftArrow",
-            onPress: handleBack,
-            containerStyle: [
-              styles.iconButton,
-              {
-                borderColor: theme.border,
-                backgroundColor: `${theme.surface}CC`,
-              },
-            ],
-            tintColor: theme.text,
-            iconStyle: { width: 18, height: 18 },
-          })}
-          <View style={styles.headerTextWrap}>
-            <Text style={[styles.title, { color: theme.text }]}>Favorites</Text>
-            <Text style={[styles.subtitle, { color: theme.secondaryText }]}>
-              {subtitle}
-            </Text>
-          </View>
-        </View>
-        {renderIconButton({
-          icon: "loveFilled",
-          tintColor: theme.primary,
-        })}
-      </View>
+      <ScreenHeader
+        title="Favorites"
+        subtitle={subtitle}
+        rightIcon="loveFilled"
+      />
 
       <FlatList
         data={FAVORITE_PRODUCTS}

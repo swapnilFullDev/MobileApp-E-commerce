@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, TextInput, View } from "react-native";
+import { Image, Platform, StyleSheet, TextInput, View } from "react-native";
 import Images, { Icons } from "../../constants/images";
 import { useTheme } from "../../context";
 import { scale, widthPercent } from "../../theme/metrics";
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     paddingHorizontal: spacing.md,
     gap: spacing.sm,
+    paddingVertical: Platform.OS === "ios" ? spacing.md : 0,
   },
   icon: {
     width: widthPercent(0.05),

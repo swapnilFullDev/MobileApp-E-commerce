@@ -5,6 +5,7 @@ import { useTheme } from "../../context";
 import { widthPercent } from "../../theme/metrics";
 import { spacing } from "../../theme/spacing";
 import { renderIconButton } from "../common/renderIconButton";
+import { colors } from "../../theme/colors";
 
 type HomeTopBarProps = {
   onSearchPress?: () => void;
@@ -22,7 +23,7 @@ export default function HomeTopBar({
   const { theme } = useTheme();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.surface }]}>
       <TouchableOpacity onPress={onLogoPress} activeOpacity={0.85}>
         <Image source={Images.brandName} style={styles.logo} />
       </TouchableOpacity>
@@ -31,10 +32,10 @@ export default function HomeTopBar({
           icon: "search",
           onPress: onSearchPress,
         })}
-        {renderIconButton({
+        {/* {renderIconButton({
           icon: "shopping",
           onPress: onCartPress,
-        })}
+        })} */}
         {renderIconButton({
           icon: "user",
           onPress: onProfilePress,
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: spacing.md,
     paddingTop: spacing.md,
+    backgroundColor: colors.white,
   },
   logo: {
     width: widthPercent(0.36),
